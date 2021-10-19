@@ -13,7 +13,7 @@ ALGORITMO DEL PROBLEMA 02{
     
     ALGORITMO PARA RESGISTRAR Y CREAR VARIABLES{
         declarar variable entera para repeticiones;
-        delcarar variable intera para la suma;
+        declarar variable entera para la suma;
         mostrar mensaje para insertar mensaje;
         regisrar n por entrada de usuario;
     }
