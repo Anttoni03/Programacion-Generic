@@ -46,14 +46,13 @@ public class Ejercicio5 {
     {
         //DECLARACIONES
         int resultado;
-        
+      
         //ACCIONES
         //TRATAMIENTO
-        resultado = (new Ejercicio5().enteroMayorEj3(
-                new Ejercicio5().enteroMayorEj3(num1,num2),num3));
+        resultado = (enteroMayorEj3(enteroMayorEj3(num1,num2),num3));
         
         //DEVOLVER RESULTADO
-        return resultado;
+        return resultado;        
     }
     
     //método para evaluar mayor de 2 enteros del ejercicio 3

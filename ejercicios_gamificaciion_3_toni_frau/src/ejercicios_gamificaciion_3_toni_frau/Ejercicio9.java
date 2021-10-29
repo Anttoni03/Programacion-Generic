@@ -38,7 +38,7 @@ public class Ejercicio9 {
         System.out.println(esVocal?"Es vocal":"No es vocal");
     }
   
-  //método función que evalúa un carácter y devuelve true si es una vocal y false si no lo es
+    //método función que evalúa un carácter y devuelve true si es una vocal y false si no lo es
     private boolean esVocal(char caracter)
     {
         //DECLARACIONES

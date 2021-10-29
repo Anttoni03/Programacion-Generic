@@ -31,6 +31,7 @@ public class Ejercicio3 {
     public static void main(String[] args) throws Exception
     {
         //DECLARACIONES
+        //declaración de 3 variables de tipo int para representar los 3 números enteros del problema
         int num1 = LT.readInt(),num2 = LT.readInt(); 
         
         //ACCIONES
