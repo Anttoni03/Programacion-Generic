@@ -1,23 +1,24 @@
 /*
- * FUNCIONALIDAD: crear programa para visualizar el número de palabras con un
- * número impar de caracteres introducidos en una secuencia finaliazada en '.'
+ * FUNCIONALIDAD: crear programa para visualizar el número de palabras que
+ * contengan al menos una vocal introducidas en una secuencia finaliazada en '.'
  * OBJETIVO: realizar el proyecto de entregas para la asignatura de programación
  * FECHA DE REALIZACIÓN: 30.10-2021
  * AUTOR: Antoni Frau Gordiola
  */
 package ejercicios_gamificacion_4_toni_frau;
 
-public class Ejercicio01 {
+public class Ejercicio05 {
     //DECLARACIONES DE CLASE
-    final char FINAL_SECUENCIA='.';
-    final char ESPACIO=' ';
+    final char FINAL_SECUENCIA = '.';
+    final char ESPACIO = ' ';
     char caracter;
-    int contadorCaracteres = 0, contadorPalabrasImpares = 0;
+    int contadorPalabrasConVocal = 0;
+    boolean palabraTieneVocal;
     
     //MÉTODO main
     public static void main(String[] args) throws Exception
     {
-        new Ejercicio01().metodoPrincipal();
+        new Ejercicio05().metodoPrincipal();
     }
     
     //MÉTODO metodoPrincipal
@@ -33,20 +34,22 @@ public class Ejercicio01 {
         {            
             manejarEspacio();
             manejarPalabra();
-            if (contadorCaracteres % 2 != 0)
-                contadorPalabrasImpares++;
+            if (palabraTieneVocal)
+                contadorPalabrasConVocal++;
         }
         
         //VISUALIZAR EL RESULTADO
-        System.out.println("Hay un total de " + contadorPalabrasImpares + " palabras impares");
+        System.out.println("Hay un total de " + contadorPalabrasConVocal + 
+                " palabras acabadas en vocal");
     }
     
     //MÉTODO PROCEDIMIENTO manejarPalabra
     private void manejarPalabra()
     {
         while (caracter != FINAL_SECUENCIA && caracter != ESPACIO)
-        {            
-            contadorCaracteres++;
+        {
+            if (esVocal(caracter))
+                palabraTieneVocal = true;
             caracter = LT.readChar();
         }
     }
@@ -55,9 +58,22 @@ public class Ejercicio01 {
     private void manejarEspacio()
     {
         while (caracter == ESPACIO)
-        {            
-            contadorCaracteres = 0;            
+        {
+            palabraTieneVocal = false;
             caracter = LT.readChar();
         }
+    }
+    
+    //MÉTODO FUNCIÓN esVocal
+    /**
+     * Función para saber si un carácter es vocal
+     * @param caracter caracter a comprobar si es vocal
+     * @return devuelve true si caracter es una vocal (minúscula) y false si no
+     */
+    private boolean esVocal(char caracter)
+    {
+        boolean resultado = caracter == 'a' || caracter == 'e' || 
+                caracter == 'i' || caracter == 'o' || caracter == 'u';
+        return resultado;
     }
 }
