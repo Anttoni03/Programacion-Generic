@@ -1,0 +1,4 @@
+Procedimiento - método no devuelve nada
+Función - método devuelve valor
+
+No poner palabras > 20 chars
