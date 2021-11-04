@@ -1,7 +1,7 @@
 /*
- * FUNCIONALIDAD: crear programa para inicializar 2 arrays, entera con temperaturas
- * medias y String con los meses del año para mostrar la temperatura media,
- * la del mes más caluroso y el más frío
+ * FUNCIONALIDAD: crear programa para inicializar un array con resultados del fútbol, uno
+ * con quinielas de apuestas y un tercero para comparar ambas, visualizando si es
+ * o no acertado
  * OBJETIVO: realizar el proyecto de entregas para la asignatura de programación
  * FECHA DE REALIZACIÓN: 02.11-2021
  * AUTOR: Antoni Frau Gordiola
@@ -18,57 +18,45 @@ public class Ejercicio06 {
     private void metodoPrincipal() throws Exception
     {
         //DECLARACIONES
-        int[] temperaturas = {8,9,13,19,22,25,29,38,31,23,18,13};
-        String[] meses = {"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
-            "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"};
+        int[] resultados = {0,1,2,2,1,0,0,0,2,1,0,1,1,2,2};
+        int[] apuestas = new int[resultados.length];
+        boolean[] comparaciones = new boolean[resultados.length];
         
         //ACCIONES
-        temperaturaMedia(temperaturas, meses);
+        inicializar(apuestas);
         
-        masCalido(temperaturas, meses);
-        
-        masFrio(temperaturas, meses);
-    }
-    
-    //método proceso temperaturaMedia que muestra las temperaturas medias de cada mes
-    private void temperaturaMedia(int[] temperaturas, String[] meses)
-    {
-        //INICIALIZACIÓN
-        float media = 0;
-        
-        //ACCIONES
-        for (int i = 0; i < meses.length;i++)
-            media += temperaturas[i];
-        
-        media /= temperaturas.length;
+        comparar(resultados, apuestas, comparaciones);
         
         //VISUALIZACIÓN
-        System.out.println("La temperatura media del año es " + media);
+        mostrarResultados(comparaciones);
     }
     
-    //método proceso masCalido para detectar la temperatura más calida y mostrarla
-    private void masCalido(int[] temperaturas, String[] meses)
+    //método procedimiento inicializar que inicializa los valores de un array por consola
+    private void inicializar(int[] numeros)
     {
-        //INICIALIZACIÓN
-        int maxima = 0;
-        for (int i = 0; i< meses.length;i++)
-            if (temperaturas[i] > temperaturas[maxima])
-                maxima = i;
-        
-        System.out.println("La temperatura máxima es de " + meses[maxima] + " con"
-                + " " + temperaturas[maxima] + " grados");
+        //ACCIONES
+        for (int i = 0;i<numeros.length;i++)
+        {
+            System.out.print("Apuesta para " + (i+1) + ", 0 ganado, 1 perdido, 2 empate: ");
+            numeros[i] = LT.readInt();
+        }
     }
     
-    //método proceso masFrio para detectar la temperatura más fría y mostrarla
-    private void masFrio(int[] temperaturas, String[] meses)
+    //método proceso comparar para comparar entre resultados y apuestas a comparaciones
+    private void comparar(int[] resultados, int[] apuestas, boolean[] comparaciones)
     {
-        //INICIALIZACIÓN
-        int minima = 0;
-        for (int i = 0; i<meses.length;i++)
-            if (temperaturas[i] < temperaturas[minima])
-                minima = i;
-        
-        System.out.println("La temperatura mínima es de " + meses[minima] + " con"
-                + " " + temperaturas[minima] + " grados");
+        //ACCIONES
+        for (int i = 0; i<resultados.length;i++)
+        {
+            comparaciones[i] = resultados[i] == apuestas[i];
+        }
+    }
+    
+    //método proceso mostrarResultados para visualizar la comparación de resultados con apuestas
+    private void mostrarResultados(boolean[] comparaciones)
+    {
+        //ACCIONES
+        for (int i = 0; i<comparaciones.length;i++)
+            System.out.println("La apuesta " + (i+1) + " es " + (comparaciones[i]?"acertada":"fallida"));
     }
 }

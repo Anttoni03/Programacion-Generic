@@ -1,6 +1,6 @@
 /*
- * FUNCIONALIDAD: crear programa para inicializar 1 array con números enteros
- * dados y visualizar otra cadena con esos valores con posición invertida
+ * FUNCIONALIDAD: crear programa para inicializar 1 array de 100 números enteros
+ * y asignarle esos primeros primos y visualizarlos
  * OBJETIVO: realizar el proyecto de entregas para la asignatura de programación
  * FECHA DE REALIZACIÓN: 02.11-2021
  * AUTOR: Antoni Frau Gordiola
@@ -27,34 +27,34 @@ public class Ejercicio09 {
         
     }
     
-    //método función invertirCadena que devuelve una cadena invertida a la dada
+    //método función invertirCadena que devuelve una cadena de los indicados primeros primos
     private void inicializar(int[] numeros)
     {
-        numeros[numeros.length - 1] = 0;
+        //DECLARACIONES
+        boolean llenoPrimos = false;
+        int indice = 0;
         
         //ACCIONES
-        for (int i = 1; i <= numeros.length;i++)
+        for (int i = 1; !llenoPrimos ;i++)
         {            
-            boolean hayPrimo = false;
-            for (int j = i;!hayPrimo;j++)
+            if (esPrimo(i))
             {
-                if (esPrimo(j))
-                {
-                    hayPrimo = true;
-                    numeros[i] = j;
-                }
+                numeros[indice] = i;
+                indice++;
+                if (indice == (numeros.length))
+                    llenoPrimos = true;
             }
         }
     }
     
-    //método función que devuelve true si un primer número es divisor de un segundo
+    //método función esPrimo que devuelve true si el número es primo
     private boolean esPrimo(int numero)
     {
         //DECLARACIONES
         boolean noEsPrimo = false;
     
         //ACCIONES
-        for (int i = numero / 2; i > 1; i--)
+        for (int i = numero / 2; i > 1 && !noEsPrimo; i--)
             noEsPrimo = numero % i == 0;
     
         //DEVOLVER RESULTADO
