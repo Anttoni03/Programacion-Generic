@@ -55,7 +55,9 @@ public class Ejercicio01
     //método procedimiento visualizar para visualizar la cadena resultante
     private void visualizar()
     {
+        LT.skipLine();
         for (int i = 0;i<inversa.length;i++)
+            if (inversa[i] != ' ')
             System.out.print(inversa[i]);
     }
 }
