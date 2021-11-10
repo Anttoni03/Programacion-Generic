@@ -11,7 +11,7 @@ public class Ejercicio02
 {
     //DECLARACIONES DE CLASE
     int[] numeros = new int[10];
-    int mayor = 0, mayorPos = 0, menor = 0, menorPos = 0;
+    int mayorPos = 0, menorPos = 0;
     
     //método main
     public static void main(String [] argumentos) throws Exception {
@@ -44,26 +44,16 @@ public class Ejercicio02
     //MÉTODO PROCEDIMIENTO maximoYMinimo
     private void maximoYMinimo()
     {
-        mayor = numeros[0];
-        mayorPos = 0;
-        menor = numeros[0];
-        menorPos = 0;
         for (int i = 0;i<numeros.length;i++)
         {
-            if (numeros[i] > mayor)
-            {
-                mayor = numeros[i];
+            if (numeros[i] > numeros[mayorPos])
                 mayorPos = i;
-            }
-            if (numeros[i] < menor)
-            {
-                menor = numeros[i];
+            if (numeros[i] < numeros[menorPos])
                 menorPos = i;
-            }
         }
         
-        System.out.println("El mayor es " + mayor + ", introducido el " + mayorPos);
-        System.out.println("El menor es " + menor + ", introducido el " + menorPos);
+        System.out.println("El mayor es " + numeros[mayorPos] + ", introducido el " + (mayorPos+1));
+        System.out.println("El menor es " + numeros[menorPos] + ", introducido el " + (menorPos+1));
     }
     
     //método procedimiento mediaAritmética
