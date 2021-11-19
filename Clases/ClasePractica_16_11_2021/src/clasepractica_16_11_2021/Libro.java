@@ -26,7 +26,7 @@ public class Libro {
     //de un objeto Libro 
     public Libro() {
         //al no contener ninguna sentencia el bloque de acciones de este método
-        //constructor conlleva  a que el objeto Libro se instanciará a partir de 
+        //constructor conlleva a que el objeto Libro se instanciará a partir de 
         //él sin inicialización alguna.
     }
     
