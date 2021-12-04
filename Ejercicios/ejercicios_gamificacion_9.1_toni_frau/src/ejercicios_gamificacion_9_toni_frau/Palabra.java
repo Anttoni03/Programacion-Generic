@@ -73,6 +73,16 @@ public class Palabra {
         return false;
     }
     
+    //METODO TIENE CONSONANTES
+    public boolean tieneConsonantes(){
+        for (int indice = 0; indice < numeroCaracteres; indice++) {
+            if (!esVocal(caracteres[indice])) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
     //MÉTODO VOCALES SON PARA SABER SI TODAS LAS VOCALES SON UNAS DADAS
     public boolean vocalesSon(char[] c)
     {
@@ -162,6 +172,17 @@ public class Palabra {
         int contador = 0;
         for (int i = 0; i < numeroCaracteres; i++) {
             if (esVocal(caracteres[i]))
+                contador++;
+        }
+        return contador;
+    }
+    
+    //MÉTODO CANTIDAD CONSONANTES
+    public int cantidadConsonantes()
+    {
+        int contador = 0;
+        for (int i = 0; i < numeroCaracteres; i++) {
+            if (!esVocal(caracteres[i]))
                 contador++;
         }
         return contador;

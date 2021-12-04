@@ -1,0 +1,3 @@
+hoy es jueves.
+El futuro es hoy.
+estamos en clase de programacion.
