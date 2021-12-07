@@ -1,4 +1,4 @@
-package cosadenis; // canviau-ho pel vostre package <----
+package clasepractica_07_12_2021; // canviau-ho pel vostre package <----
 
 import java.io.BufferedReader;
 import java.io.IOException;

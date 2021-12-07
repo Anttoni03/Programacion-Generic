@@ -30,7 +30,7 @@ public class PruebasDeFicherosJejeje {
         //Instanciación objeto FileWriter fichero para establecer enlace con el
         //fichero físico fichero2.txt
         
-        ficheroEsc=new FileWriter("fichero2.txt");
+        ficheroEsc=new FileWriter("fichero2.    txt");
         //mensaje usuario para introducir texto por teclado
         System.out.print("INTRODUCIR TEXTO: ");
         //lectura primer caracter del texto introducido por teclado
