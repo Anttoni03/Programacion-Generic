@@ -1,0 +1,20 @@
+1.esto
+		2.aquesto
+1.es
+		2.es
+1.el
+		2.el
+1.fichero
+		2.fixiero
+1.numero
+		2.number
+1.1
+		2.2
+1.jajaja.
+		2.tari
+1.jejeje
+		2.tori
+1.jojo
+		2.tari
+1.juas
+		2.tori
