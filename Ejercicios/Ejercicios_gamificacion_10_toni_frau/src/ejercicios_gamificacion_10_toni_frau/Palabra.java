@@ -449,7 +449,7 @@ public class Palabra {
         if (palabra1.numeroCaracteres == palabra2.numeroCaracteres)
         {
             for (int i = 0; i < palabra1.numeroCaracteres; i++) {
-                if (palabra1.caracteres[i] != palabra1.caracteres[i])
+                if (palabra1.caracteres[i] != palabra2.caracteres[i])
                 {
                     return false;
                 }
@@ -459,6 +459,15 @@ public class Palabra {
         else
         {
             return false;
+        }
+    }
+    
+    public static void copiar(Palabra palabra1, Palabra palabra2)
+    {
+        palabra2.numeroCaracteres = palabra1.numeroCaracteres;
+        for (int i = 0; i < palabra1.numeroCaracteres; i++)
+        {
+            palabra2.caracteres[i] = palabra1.obtenerCaracter(i);
         }
     }
 }
