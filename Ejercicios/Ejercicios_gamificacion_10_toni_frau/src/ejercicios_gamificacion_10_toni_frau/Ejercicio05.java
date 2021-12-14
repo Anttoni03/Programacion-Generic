@@ -29,9 +29,8 @@ public class Ejercicio05 {
         while (ficheroLectura.hayPalabras()) {            
             palabra = ficheroLectura.lectura();
             if (palabraUsuario.equals(palabra.toString()))
-            {
                 ficheroEscritura.escritura(PALABRA_SUSTITUTIVA);
-            }else
+            else
                 ficheroEscritura.escritura(palabra);
             
             ficheroEscritura.escrituraSeparador();

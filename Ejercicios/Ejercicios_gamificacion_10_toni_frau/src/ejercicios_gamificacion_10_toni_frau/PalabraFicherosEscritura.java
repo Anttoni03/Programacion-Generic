@@ -31,6 +31,12 @@ public class PalabraFicherosEscritura {
         fichero=new BufferedWriter(new FileWriter(nombreFichero));
     }
     
+    public PalabraFicherosEscritura(String nombreFichero, boolean adder) throws Exception {
+        //establecimiento enlace BufferedWriter con fichero de texto identificado
+        //a través del parámetro String nombreFichero dado
+        fichero=new BufferedWriter(new FileWriter(nombreFichero, adder));
+    }
+    
     //MÉTODOS FUNCIONALES
     
     //MÉTODO escritura QUE LLEVA A CABO LA ESCRITURA DE UNA PALABRA EN EL

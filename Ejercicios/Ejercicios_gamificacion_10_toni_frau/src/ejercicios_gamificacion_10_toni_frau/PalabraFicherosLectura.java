@@ -24,7 +24,7 @@ public class PalabraFicherosLectura {
     private static final int SALTO_LINEA=(int) '\n';
     //declaración atributo de clase variable entero que represente el código
     //de caracter leido desde el fichero
-    private static int codigo=COD_ESPACIO;
+    private int codigo=COD_ESPACIO;
     //declaración atributo de objeto BufferedReader que posibilite el enlace
     //con el fichero de texto a nivel de lectura
     private BufferedReader fichero=null;

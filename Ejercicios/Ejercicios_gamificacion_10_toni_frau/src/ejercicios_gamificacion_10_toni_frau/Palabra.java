@@ -444,4 +444,21 @@ public class Palabra {
         return (caracteres[posicion]);
     }   
     
+    public static boolean iguales(Palabra palabra1, Palabra palabra2)
+    {
+        if (palabra1.numeroCaracteres == palabra2.numeroCaracteres)
+        {
+            for (int i = 0; i < palabra1.numeroCaracteres; i++) {
+                if (palabra1.caracteres[i] != palabra1.caracteres[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 }
