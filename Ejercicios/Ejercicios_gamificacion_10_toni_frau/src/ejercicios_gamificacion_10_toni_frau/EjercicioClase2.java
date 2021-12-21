@@ -14,7 +14,7 @@ public class EjercicioClase2 {
     {
         final int CANTIDAD_PALABRAS = 10;
         Palabra palabra = new Palabra();
-        Palabra palabrasUsuario[] = new Palabra[CANTIDAD_PALABRAS];
+        Palabra[] palabrasUsuario = new Palabra[CANTIDAD_PALABRAS];
         int[] contadorPalabras = new int[CANTIDAD_PALABRAS];        
         
         for (int i = 0; i < CANTIDAD_PALABRAS; i++){

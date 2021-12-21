@@ -35,7 +35,7 @@ public class Problema03 {
         //llamada al método finalización para indicar  que se finaliza el programa
         finalizacion();
     }
-    
+        
     //método procedimiento operar que realiza la acción de codificar o decodificar
     //según el parámetro dado. Recibe por teclado los nombres de archivos a leer
     //y escribir y realiza las operaciones allí
