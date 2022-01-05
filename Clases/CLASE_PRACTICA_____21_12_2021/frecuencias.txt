@@ -1,0 +1,7 @@
+Frecuencia palabra una: 3.
+Frecuencia palabra dos: 2.
+Frecuencia palabra tres: 1.
+Frecuencia palabra cuatro: 1.
+Frecuencia palabra cinco: 1.
+Frecuencia palabra seis: 1.
+Frecuencia palabra diez: 1.
