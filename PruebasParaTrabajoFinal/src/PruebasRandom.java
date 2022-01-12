@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
 import java.util.Random;
 
@@ -21,6 +16,6 @@ public class PruebasRandom {
     {
         Random rand = new Random();
         
-        System.out.println(rand.nextInt(1));
+        System.out.println(rand.nextInt(10));
     }
 }
