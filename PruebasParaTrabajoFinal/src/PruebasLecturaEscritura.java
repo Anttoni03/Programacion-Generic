@@ -1,5 +1,6 @@
 
 import java.io.FileReader;
+import java.io.BufferedReader;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -19,14 +20,14 @@ public class PruebasLecturaEscritura {
     
     //método metodoPrincipal
     private void metodoPrincipal() throws Exception
-    {
+    {        
         int l;
         int i;
-        FileReader lector = new FileReader("ficheroFichas.txt");
+        BufferedReader lector = new BufferedReader(new FileReader("ficheroFichas.txt"));
         System.out.println((int)'\n');
         l = lector.read();
         
-        for (i = 0; l != -1;)
+        for (i = 0; l != -1;l = lector.read())
         {
             if (l == 13) i++;
             
@@ -36,9 +37,7 @@ public class PruebasLecturaEscritura {
             {
                 System.out.print("\t");
                 System.out.println(l);
-            }
-            
-            l = lector.read();
+            }         
         }
         
         System.out.println("Cantidad: " + i);
