@@ -1,35 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 
-
-/**
- *
- * @author tonif
- */
 public class Ficha {
     //DECLARACIÓN DE LOS ATRIBUTOS DE LA CLASE
     //variable de objeto que representa el carácter alfabético de la ficha
-    private char caracter;
+    private char letra;
     //variable de objeto que representa la cantidad total de esa ficha
     private int cantidad;
     //variable de objeto que representa el valor de puntuación de la ficha
     private int valor;
     
     //MÉTODO CONSTRUCTOR
-    public Ficha(char car, int can, int val)
+    public Ficha(char let, int can, int val)
     {
-        caracter = car;
+        letra = let;
         cantidad = can;
         valor = val;
     }
     
     //MÉTODO ENCARGADO DE DEVOLVER EL CARÁCTER
-    public char getCaracter()
+    public char getLetra()
     {
-        return caracter;
+        return letra;
     }
     
     //MÉTODO ENCARGADO DE DEVOLVER LA CANTIDAD DE LA FICHA
@@ -47,8 +37,12 @@ public class Ficha {
     //MÉTODO ENCARGADO DE DEVOLVER UNA COPIA DEL OBJETO FICHA
     public Ficha copiar()
     {
-        Ficha ficha = new Ficha(caracter, valor, valor);
+        Ficha ficha = new Ficha(letra, valor, valor);
         return ficha;
     }
     
+    public String toString()
+    {
+      return "Letra - " + letra + "\tPuntos - " + valor;
+    }
 }

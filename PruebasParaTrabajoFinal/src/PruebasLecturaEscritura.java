@@ -2,16 +2,9 @@
 import java.io.FileReader;
 import java.io.BufferedReader;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+import java.io.FileWriter;
+import java.io.BufferedWriter;
 
-/**
- *
- * @author tonif
- */
 public class PruebasLecturaEscritura {
     //método main
     public static void main(String [] argumentos) throws Exception {
@@ -24,6 +17,11 @@ public class PruebasLecturaEscritura {
         int l;
         int i;
         BufferedReader lector = new BufferedReader(new FileReader("ficheroFichas.txt"));
+        BufferedWriter esc = new BufferedWriter(new FileWriter("cosa.txt", true));
+        
+        
+        esc.write("Holaaaa");
+        esc.close();
         System.out.println((int)'\n');
         l = lector.read();
         

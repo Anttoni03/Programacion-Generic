@@ -47,8 +47,8 @@ public class Palabra {
     
     //método de clase buscarPalabra que lleva a cabo la búsqueda de un objeto Palabra 
     //en la secuencia de caracteres
-    private static void buscarPalabra() {
-        while (caracter==ESPACIO) {
+    public static void buscarPalabra() {
+        while (!esLetra(caracter) && caracter != FINAL_SECUENCIA) {
             //lectura siguiente caracter de la secuencia
             caracter=LT.readChar();
         }
@@ -83,6 +83,7 @@ public class Palabra {
             //lectura siguiente caracter de la secuencia 
             caracter=LT.readChar();
         }
+        caracter = ESPACIO;
     }
     
     //método de objeto toString que lleva a cabo la conversión de un objeto Palabra
@@ -105,39 +106,23 @@ public class Palabra {
         return resultado;   
     }
     
-    //método de objeto booleano igualNumeroVocalesQueConsonantes que lleva a cabo
-    //la verificación de si un objeto Palabra tiene el mismo número de vocales
-    //que consonantes
-    public boolean igualNumeroVocalesQueConsonantes() {
-        //DECLARACIONES
-        //declaración variable entera para almacenar el número de vocales
-        int contadorVocales=0;
-        //declaración variable entera para almacenar el número de consonantes
-        int numeroConsonantes;
-        
-        //ACCIONES
-        //bucle para contabilizar el número de vocales contenidas en un
-        //objeto Palabra
-        for (int indice=0;indice<numeroCaracteres;indice++) {
-            //verificación de vocal con el caracter de la palabra contenido
-            //en la componente indice-ésima del array caracteres
-            if (esVocal(caracteres[indice])) {
-                //incremento del contador de vocales
-                contadorVocales++;
-            }
-        }
-        
-        //calcular el número de consonantes
-        numeroConsonantes=numeroCaracteres-contadorVocales;
-        
-        //devolver el resultado demandado
-        return (numeroConsonantes==contadorVocales);
-    }
     
     //método booleano esVocal lleva a cabo la verificación de vocal del caracter
     //dado por parámetro
     private boolean esVocal(char car) {
         return ((car=='a')||(car=='e')||(car=='i')||(car=='o')||(car=='u'));
+    }
+    
+    private static boolean esLetra(char car){
+        char[] abc = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        for (int indice = 0; indice < abc.length; indice++) {
+            if (abc[indice] == car)
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
     
     //método de objeto función conversionMayusculas que devuelve un objeto Palabra
@@ -165,33 +150,7 @@ public class Palabra {
         return conversion;
     }
     
-    //método deobjeto numeroCaracteresPar que verifica si un objeto Palabra tiene
-    //un número par de caracteres
-    public boolean numeroCaracteresPar() {
-        return (numeroCaracteres%2==0);
-    }
     
-    //método de objeto numeroConsonantesPar que verifica si un objeto Palabra
-    //tiene un número par de caracteres consonantes
-    public boolean numeroConsonantesPar() {
-        //DECLARACIONES
-        //declaración contador entero para almacenar el número de consonantes
-        int numeroConsonantes=0;
-        
-        //ACCIONES
-        //bucle contador de consonantes
-        for (int indice=0;indice<numeroCaracteres;indice++) {
-            //verificación si el caracter del objeto Palabra almacenado
-            //en la componente indice-ésima del array caracteres es consonante
-            if (!esVocal(caracteres[indice])) {
-                //incremento contador de consonantes
-                numeroConsonantes++;      
-            }
-        }
-        
-        //devolver resultado
-        return (numeroConsonantes%2==0);
-    }
     
     //método de objeto numeroConsonantes devuelve el número de caracteres consonantes
     //de un objeto Palabra
