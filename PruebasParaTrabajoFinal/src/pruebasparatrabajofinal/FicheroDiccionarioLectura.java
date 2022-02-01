@@ -1,3 +1,8 @@
+//Antoni Frau Gordiola
+//Alejandro Sánchez Sayes
+package pruebasparatrabajofinal;
+
+import pruebasparatrabajofinal.AccionesFichas;
 import java.io.BufferedReader;
 import java.io.FileReader;
 

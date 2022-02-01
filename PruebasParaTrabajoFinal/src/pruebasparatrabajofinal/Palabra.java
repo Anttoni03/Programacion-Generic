@@ -1,6 +1,10 @@
+package pruebasparatrabajofinal;
+
+//Antoni Frau Gordiola
+//Alejandro Sánchez Sayes
 /*
 CLASE Palabra
-Agklutina las declaraciones y funcionalidades para gestionar objetos Palabra
+Aglutina las declaraciones y funcionalidades para gestionar objetos Palabra
  */
 
 

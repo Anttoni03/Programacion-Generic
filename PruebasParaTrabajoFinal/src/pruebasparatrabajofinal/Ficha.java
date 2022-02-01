@@ -1,3 +1,6 @@
+//Antoni Frau Gordiola
+//Alejandro Sánchez Sayes
+package pruebasparatrabajofinal;
 
 public class Ficha {
     //DECLARACIÓN DE LOS ATRIBUTOS DE LA CLASE

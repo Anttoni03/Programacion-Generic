@@ -1,4 +1,7 @@
- // canviau-ho pel vostre package <----
+package pruebasparatrabajofinal;
+
+//Antoni Frau Gordiola
+//Alejandro Sánchez Sayes
 
 import java.io.BufferedReader;
 import java.io.IOException;

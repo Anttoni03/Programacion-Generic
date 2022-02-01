@@ -1,3 +1,7 @@
+//Antoni Frau Gordiola
+//Alejandro Sánchez Sayes
+package pruebasparatrabajofinal;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -25,11 +29,12 @@ public class FicheroControlHistorico {
         }
     }
     
-    public void guardarRegistro(char[] nombre, int punt) throws Exception
+    public void guardarRegistro(char[] nombre, int punt, int turn) throws Exception
     {
         DateTimeFormatter formatoTiempo = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         char[] tiempo = (formatoTiempo.format(LocalDateTime.now())).toCharArray();
         char[] puntos = separarNumero(punt);
+        char[] turnos = separarNumero(turn);
         for (int indice = 0; indice < tiempo.length; indice++)
         {
             escritor.write(tiempo[indice]);
@@ -42,6 +47,11 @@ public class FicheroControlHistorico {
         for (int indice = 0; indice < puntos.length; indice++) {
             escritor.write(puntos[indice]);
         }
+        escritor.write(" en ");
+        for (int indice = 0; indice < turnos.length; indice++) {
+            escritor.write(turnos[indice]);
+        }
+        escritor.write(" turnos.");
         escritor.write("\n");
     }
     
@@ -86,7 +96,7 @@ public class FicheroControlHistorico {
     
     public void recuperarRegistros() throws Exception
     {
-        int codigoLeido = ' ';
+        int codigoLeido = lector.read();
         System.out.println("Registros: ");
         while (codigoLeido != -1) {            
             System.out.print((char)codigoLeido);
