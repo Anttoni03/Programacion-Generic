@@ -1,8 +1,8 @@
 //Antoni Frau Gordiola
 //Alejandro Sánchez Sayes
-package pruebasparatrabajofinal;
+package practicafinalscrabble;
 
-import pruebasparatrabajofinal.AccionesFichas;
+import practicafinalscrabble.AccionesFichas;
 import java.io.BufferedReader;
 import java.io.FileReader;
 

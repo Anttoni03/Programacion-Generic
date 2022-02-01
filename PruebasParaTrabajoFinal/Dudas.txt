@@ -1,8 +1,0 @@
-1. Se pueden palabraFicherosLectura para diccionario
-2. Es mejor buffered que file a secas?
-3. Clase para escribir en ficheros? Puntuación y tal
-
-Lo primero es que funcione
-Después la orientación a objetos - Cómo són los métodos y tal
-El programa principal - Legibilidad, estructura, comentación, ...
-Memoria

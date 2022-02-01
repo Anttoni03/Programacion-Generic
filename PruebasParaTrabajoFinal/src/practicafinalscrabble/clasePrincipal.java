@@ -1,6 +1,6 @@
 //Antoni Frau Gordiola
 //Alejandro Sánchez Sayes
-package pruebasparatrabajofinal;
+package practicafinalscrabble;
 
 public class clasePrincipal {
     
