@@ -38,28 +38,28 @@ public class AccionesFichas {
             //la cantidad y valor que va a tener cada ficha
             int cantidad = 0, valor = 0;
             //búsqueda de una letra del fichero de fichas
-            if (ficheroFichas.EncontrarLetra())
+            if (ficheroFichas.encontrarLetra())
             {
                 //guardar la letra encontrada
-                caracter = ficheroFichas.LeerLetra();
+                caracter = ficheroFichas.leerLetra();
             }
             //búsqueda de un número del fichero de fichas, que será la cantidad
-            if (ficheroFichas.EncontrarNumero())
+            if (ficheroFichas.encontrarNumero())
             {
                 //guardar la cantidad encontrada
-                cantidad = ficheroFichas.LeerNumeros();
+                cantidad = ficheroFichas.leerNumeros();
             }
             //búsqueda de un número del fichero de fichas, que será el valor
-            if (ficheroFichas.EncontrarNumero())
+            if (ficheroFichas.encontrarNumero())
             {
                 //guardar el valor encontrado
-                valor = ficheroFichas.LeerNumeros();
+                valor = ficheroFichas.leerNumeros();
             }
             //instanciar cada ficha con sus valores guardados anteriormente
             fichasBase[indice] = new Ficha(caracter, cantidad, valor);            
         }
         //cerrar el enlace con el fichero de fichas
-        ficheroFichas.CerrarEnlace();
+        ficheroFichas.cerrarEnlace();
     }
     
     //método sortearFichas que reparte aleatoriamente, teniendo en cuenta las

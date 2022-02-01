@@ -125,7 +125,7 @@ public class AccionesPartida {
             diccionario = new FicheroDiccionarioLectura("diccionarioCastellano.txt");
             pal = diccionario.palabraCerebroSuperior(fichas);
             //se cierra el enlace del fichero diccionario
-            diccionario.CerrarEnlace();
+            diccionario.cerrarEnlace();
         }
         //se procede a finalizar el turno con la palabra obtenida
         finalizarTurno(pal);
@@ -140,7 +140,7 @@ public class AccionesPartida {
         //se comprueba que la palabra dada esté
         boolean esta = diccionario.estaPalabra(pal);
         //se cierra el enlace con el fichero de diccionario
-        diccionario.CerrarEnlace();
+        diccionario.cerrarEnlace();
         //devolución de si la palabra dada está o no en el diccionario
         return esta;
     }

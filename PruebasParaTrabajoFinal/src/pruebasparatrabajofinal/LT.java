@@ -1,7 +1,6 @@
-package pruebasparatrabajofinal;
-
 //Antoni Frau Gordiola
 //Alejandro Sánchez Sayes
+package pruebasparatrabajofinal;
 
 import java.io.BufferedReader;
 import java.io.IOException;
