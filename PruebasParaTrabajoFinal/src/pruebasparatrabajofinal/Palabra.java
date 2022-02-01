@@ -68,6 +68,25 @@ public class Palabra {
         caracter = ESPACIO;
     }
     
+    //método de objeto toString que lleva a cabo la conversión de un objeto Palabra
+    //a String con fines de utilizarlo en las sentencias System.out.print y 
+    //System.out.println
+    public String toString() {
+        //DECLARACIONES
+        //declaración de una variable Striung para almacenar el resultado
+        //de la concatenación de los caracteres del objeto Palabra a convertir
+        String resultado="";
+        
+        //ACCIONES
+        //bucle de concatenaciones
+        for (int indice=0;indice<numeroCaracteres;indice++) {
+            //concatenar el caracter de lapalabra almacenado en la componente
+            //indice-ésima del array caracteres con el String resultado
+            resultado=resultado+caracteres[indice];
+        }
+        //devoluciñon String resultante
+        return resultado;   
+    }
     
     //método booleano esLetra que lleva a cabo la comprobación de ser una letra
     //con el carácter dado

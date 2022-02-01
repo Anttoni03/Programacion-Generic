@@ -18,3 +18,5 @@
 01/02/2022 18:51:55	Nombre: prueba1	Puntos: -10 en 5 turnos.
 01/02/2022 18:55:01	Nombre: mal	Puntos: -50 en 5 turnos.
 01/02/2022 19:02:07	Nombre: hayhay	Puntos: 26 en 5 turnos.
+01/02/2022 19:15:20	Nombre: tonii	Puntos: 3 en 3 turnos.
+01/02/2022 19:20:57	Nombre: antonioodesu	Puntos: 33 en 4 turnos.
