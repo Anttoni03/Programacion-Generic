@@ -2,7 +2,7 @@
 //Alejandro Sánchez Sayes
 package practicafinalscrabble;
 
-public class clasePrincipal {
+public class ClasePrincipal {
     
     //DECLARACIÓN DE LOS ATRIBUTOS
     //atributo de clase que indica cuantos turnos se deberán jugar al elegir la
@@ -22,7 +22,7 @@ public class clasePrincipal {
     //declaración del método main
     public static void main(String[] args) throws Exception
     {
-        new clasePrincipal().MetodoPrincipal();
+        new ClasePrincipal().MetodoPrincipal();
     }
     
     //declaración del método MetodoPrincipal que ejecuta las acciones principales
