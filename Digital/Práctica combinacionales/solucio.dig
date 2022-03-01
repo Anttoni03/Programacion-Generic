@@ -12,7 +12,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A_2</string>
+          <string>A2</string>
         </entry>
       </elementAttributes>
       <pos x="540" y="200"/>
@@ -26,7 +26,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A_1</string>
+          <string>A1</string>
         </entry>
       </elementAttributes>
       <pos x="580" y="200"/>
@@ -40,7 +40,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>A_0</string>
+          <string>A0</string>
         </entry>
       </elementAttributes>
       <pos x="620" y="200"/>
@@ -54,7 +54,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B_2</string>
+          <string>B2</string>
         </entry>
       </elementAttributes>
       <pos x="400" y="200"/>
@@ -68,7 +68,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B_1</string>
+          <string>B1</string>
         </entry>
       </elementAttributes>
       <pos x="440" y="200"/>
@@ -82,7 +82,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>B_0</string>
+          <string>B0</string>
         </entry>
       </elementAttributes>
       <pos x="480" y="200"/>
@@ -96,7 +96,7 @@
         </entry>
         <entry>
           <string>Label</string>
-          <string>C_2</string>
+          <string>C2</string>
         </entry>
       </elementAttributes>
       <pos x="1120" y="1140"/>
@@ -106,11 +106,11 @@
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation reference="../../../../visualElement[7]/elementAttributes/entry/rotation"/>
+          <rotation rotation="1"/>
         </entry>
         <entry>
           <string>Label</string>
-          <string>C_1</string>
+          <string>C1</string>
         </entry>
       </elementAttributes>
       <pos x="1160" y="1140"/>
@@ -120,11 +120,11 @@
       <elementAttributes>
         <entry>
           <string>rotation</string>
-          <rotation reference="../../../../visualElement[7]/elementAttributes/entry/rotation"/>
+          <rotation rotation="1"/>
         </entry>
         <entry>
           <string>Label</string>
-          <string>C_0</string>
+          <string>C0</string>
         </entry>
       </elementAttributes>
       <pos x="1200" y="1140"/>
@@ -308,7 +308,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>R_0</string>
+          <string>R0</string>
         </entry>
       </elementAttributes>
       <pos x="1360" y="380"/>
@@ -318,7 +318,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>R_1</string>
+          <string>R1</string>
         </entry>
       </elementAttributes>
       <pos x="1360" y="440"/>
@@ -328,7 +328,7 @@
       <elementAttributes>
         <entry>
           <string>Label</string>
-          <string>R_2</string>
+          <string>R2</string>
         </entry>
       </elementAttributes>
       <pos x="1360" y="500"/>
@@ -398,7 +398,7 @@
       <p2 x="1000" y="520"/>
     </wire>
     <wire>
-      <p1 x="540" y="520"/>
+      <p1 x="580" y="520"/>
       <p2 x="800" y="520"/>
     </wire>
     <wire>
@@ -482,7 +482,7 @@
       <p2 x="1000" y="540"/>
     </wire>
     <wire>
-      <p1 x="480" y="540"/>
+      <p1 x="440" y="540"/>
       <p2 x="800" y="540"/>
     </wire>
     <wire>
@@ -582,7 +582,7 @@
       <p2 x="1360" y="560"/>
     </wire>
     <wire>
-      <p1 x="440" y="560"/>
+      <p1 x="540" y="560"/>
       <p2 x="800" y="560"/>
     </wire>
     <wire>
@@ -614,7 +614,7 @@
       <p2 x="1360" y="500"/>
     </wire>
     <wire>
-      <p1 x="580" y="500"/>
+      <p1 x="480" y="500"/>
       <p2 x="800" y="500"/>
     </wire>
     <wire>
@@ -675,10 +675,10 @@
     </wire>
     <wire>
       <p1 x="480" y="200"/>
-      <p2 x="480" y="540"/>
+      <p2 x="480" y="500"/>
     </wire>
     <wire>
-      <p1 x="480" y="540"/>
+      <p1 x="480" y="500"/>
       <p2 x="480" y="700"/>
     </wire>
     <wire>
@@ -722,7 +722,7 @@
       <p2 x="580" y="380"/>
     </wire>
     <wire>
-      <p1 x="580" y="500"/>
+      <p1 x="580" y="520"/>
       <p2 x="580" y="660"/>
     </wire>
     <wire>
@@ -731,7 +731,7 @@
     </wire>
     <wire>
       <p1 x="580" y="380"/>
-      <p2 x="580" y="500"/>
+      <p2 x="580" y="520"/>
     </wire>
     <wire>
       <p1 x="580" y="660"/>
@@ -847,14 +847,14 @@
     </wire>
     <wire>
       <p1 x="440" y="200"/>
-      <p2 x="440" y="560"/>
+      <p2 x="440" y="540"/>
     </wire>
     <wire>
       <p1 x="440" y="720"/>
       <p2 x="440" y="1100"/>
     </wire>
     <wire>
-      <p1 x="440" y="560"/>
+      <p1 x="440" y="540"/>
       <p2 x="440" y="720"/>
     </wire>
     <wire>
@@ -882,7 +882,7 @@
       <p2 x="540" y="1100"/>
     </wire>
     <wire>
-      <p1 x="540" y="520"/>
+      <p1 x="540" y="560"/>
       <p2 x="540" y="680"/>
     </wire>
     <wire>
@@ -891,7 +891,7 @@
     </wire>
     <wire>
       <p1 x="540" y="360"/>
-      <p2 x="540" y="520"/>
+      <p2 x="540" y="560"/>
     </wire>
     <wire>
       <p1 x="1180" y="520"/>
