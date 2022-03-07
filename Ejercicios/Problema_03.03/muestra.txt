@@ -1,0 +1,36 @@
+{
+	"Titulo":peli 1
+	"Director":Yo
+	"Año de estreno":2022
+}
+
+{
+	"Titulo":como estas
+	"Director":MontesDeCoca
+	"Año de estreno":2077
+}
+
+{
+	"Titulo":peli 3
+	"Director":nadie
+	"Año de estreno":1
+}
+
+{
+	"Titulo":peli 1
+	"Director":yo
+	"Año de estreno":2022
+}
+
+{
+	"Titulo":peli 2
+	"Director":cosa
+	"Año de estreno":2
+}
+
+{
+	"Titulo":peli 3
+	"Director":alguien
+	"Año de estreno":999
+}
+
