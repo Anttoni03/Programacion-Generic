@@ -43,10 +43,10 @@ public class uso_clase_FileInputStream_3 {
                     System.out.print(codigo+" ");
                     //lectura siguiente byte desde el fichero
                     codigo=fichero.read();
-                }             
+                }
             }catch (IOException error) {
                 System.err.println("ERROR AL LEER DEL FICHERO");
-            }  
+            }
             finally {
                 try {
                     //cierre del enlace FileInputStream

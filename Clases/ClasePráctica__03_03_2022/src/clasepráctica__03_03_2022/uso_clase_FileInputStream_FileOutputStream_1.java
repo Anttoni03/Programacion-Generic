@@ -33,7 +33,6 @@ public class uso_clase_FileInputStream_FileOutputStream_1 {
         //declaración variable entera para almacenar los bytes, uno a uno, que
         //van siendo leidos desde el fichero
         int codigo;
-        System.out.println("FileInput");
         
         //ACCIONES
         try {
@@ -49,7 +48,7 @@ public class uso_clase_FileInputStream_FileOutputStream_1 {
                 //bucle de lectura y visualización
                 while (codigo!=FINAL_FICHERO) {
                     //visualización byte leido del fichero uib.jpg
-                    System.out.println(codigo);
+                    System.out.print(codigo);
                     //grabación byte leido en el fichero uibCopia.jpg
                     fichero2.write(codigo);
                     //lectura siguiente byte desde el fichero uib.jpg

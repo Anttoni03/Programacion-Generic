@@ -16,7 +16,7 @@ public class usoClaseFile_1 {
     //declaración metodoPrincipal
     public void metodoPrincipal() {
         //declaración e instaciación objeto File con el fichero texto.txt
-        File fichero=new File("texto.txt");
+        File fichero=new File("uib.jpg");
         //ejemplos uso funcionalidades clase File a través del objeto fichero
         if (fichero.exists()) {
             //método getName()
@@ -37,6 +37,6 @@ public class usoClaseFile_1 {
         }
         else {
             System.out.println("EL FICHERO NO EXISTE");
-        }            
+        }
     }   
 }

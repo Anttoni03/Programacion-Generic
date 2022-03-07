@@ -33,7 +33,7 @@ public class PalabraFicherosLectura {
     
     //MÉTODOS
     //MÉTODO CONSTRUCTOR
-    public PalabraFicherosLectura(String nombreFichero) {
+    public PalabraFicherosLectura(String nombreFichero){
         try {
             //establecimiento enlace BufferedReader con fichero de texto identificado
             //a través del parámetro String nombreFichero dado
