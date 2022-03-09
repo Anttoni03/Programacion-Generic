@@ -12,7 +12,7 @@ public class PeliculaObjetoFicherosOut {
     private AdicionObjectOutputStream fichero2=null; 
     
     //MÉTODO CONSTRUCTOR
-    public PeliculaObjetoFicherosOut(String nombreFichero) { 
+    public PeliculaObjetoFicherosOut(String nombreFichero){ 
        try {
            //declaración objeto File que enlace con el fichero dado por parámetro
             File F = new File(nombreFichero);         

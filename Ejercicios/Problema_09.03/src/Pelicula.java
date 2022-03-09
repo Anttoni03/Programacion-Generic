@@ -3,7 +3,7 @@ CLASE Pelicula
  */
 
 
-public class Pelicula {
+public class Pelicula implements java.io.Serializable{
     //DECLARACIONES DE ATRIBUTOS
     private String titulo;
     private String director;
