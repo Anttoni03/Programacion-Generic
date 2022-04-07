@@ -160,7 +160,7 @@ public class GestionActualizacionContactos {
     //OBJETOS Contacto INTRODUCIDOS POR TECLADO SEGÚN EL CÓDIGO INDICADO
     private void modificacionContacto() {
         //DECLARACIONES
-        int codigo = 0, modif = 0;
+        int codigo = 0, modif;
         Contacto contacto;
         FicheroContactoInOut fichero;
         
@@ -170,6 +170,7 @@ public class GestionActualizacionContactos {
         limpiarPantalla("<<<<<<     MODIFICANDO CONTACTOS       >>>>>>");
         
         for (boolean fin=false;!fin;) {
+            modif = 0;
             System.out.print("INTRODUCIR CÓDIGO DE CONTACTO A MODIFICAR: ");
             codigo = LT.readInt();
             contacto = fichero.lectura(codigo);
@@ -236,7 +237,7 @@ public class GestionActualizacionContactos {
         limpiarPantalla("<<<<<<     ELIMINANDO CONTACTOS       >>>>>>");
         
         for (boolean fin=false;!fin;) {
-            System.out.print("INTRODUCIR 5CÓDIGO DE CONTACTO A EL1IMINAR: ");
+            System.out.print("INTRODUCIR CÓDIGO DE CONTACTO A ELIMINAR: ");
             codigo = LT.readInt();
             contacto = fichero.lectura(codigo);
             if (contacto.getEliminado())

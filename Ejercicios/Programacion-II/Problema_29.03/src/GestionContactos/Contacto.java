@@ -143,7 +143,7 @@ public class Contacto {
      }
      
      //método que convierte a String un objeto Contacto
-     @Override   
+     @Override
      public String toString() {       
          return "CODIGO: " + codigo + 
                 "\nNOMBRE: " + nombre + 

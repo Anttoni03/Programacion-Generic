@@ -33,7 +33,7 @@ public class FicheroContactoInOut {
             contacto.setEdad(fichero.readInt());            //Lectura de 4 bytes de la edad
             contacto.setEliminado(fichero.readBoolean());   //Lectura de 1 byte del estado
         } catch (EOFException e) {
-            System.err.println("ERROR EN LA LECTURA DEL FICHERO: " + e.toString());
+            //System.err.println("ERROR EN LA LECTURA DEL FICHERO: " + e.toString());
         } catch (IOException e) {
             System.err.println("ERROR EN LA LECTURA DEL FICHERO: " + e.toString());
         }
@@ -103,8 +103,14 @@ public class FicheroContactoInOut {
             if (posicion > 0 && posicion <= (fichero.length() / Contacto.getDimension()))
             {
                 fichero.seek((posicion-1) * Contacto.getDimension());
-                System.out.println("Seek en " + (posicion-1) * Contacto.getDimension());
-                escritura(contacto);
+                
+                fichero.writeInt(contacto.getCodigo());
+                fichero.writeChars(escrituraString(contacto.getNombre(), 32));
+                fichero.writeChars(escrituraString(contacto.getTelefono(), 16));
+                fichero.writeChars(escrituraString(contacto.getEmail(), 32));
+                fichero.writeChars(escrituraString(contacto.getDireccion(), 64));
+                fichero.writeInt(contacto.getEdad());
+                fichero.writeBoolean(contacto.getEliminado());
             }
             else{
                 throw new EntradaIncorrecta("LA POSICIÓN NO EXISTE");
