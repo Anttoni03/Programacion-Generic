@@ -45,7 +45,7 @@ public class ProgramaPrincipal {
                     continuar();
             } catch (NumberFormatException e){
                 System.err.println("ERROR: " + e.toString());
-            } catch (InsercioDadesException e){
+            } catch (InsercionDatosException e){
                 System.err.println("ERROR: " + e.toString());
             } catch (Exception e){
                 System.err.println("ERROR: " + e.toString());
@@ -136,7 +136,7 @@ public class ProgramaPrincipal {
                 }
                 espaciado(1);
             }
-        } catch (InsercioDadesException e) {
+        } catch (InsercionDatosException e) {
             System.err.println("ERROR: " + e.toString());
         } catch (NumberFormatException e) {
             System.err.println("ERROR: " + e.toString());
@@ -168,13 +168,13 @@ public class ProgramaPrincipal {
         fichero.cerrarEnlace();
     }
     
-    private void comprobarOpcion(int nombre) throws InsercioDadesException
+    private void comprobarOpcion(int nombre) throws InsercionDatosException
     {
-        if (nombre < 0 || 5 < nombre) throw new InsercioDadesException("ERROR DE OPCIÓN NO VÁLIDA");
+        if (nombre < 0 || 5 < nombre) throw new InsercionDatosException("ERROR DE OPCIÓN NO VÁLIDA");
     }
-    private void comprobarVotaciones(int numero) throws InsercioDadesException
+    private void comprobarVotaciones(int numero) throws InsercionDatosException
     {
-        if (numero < 0 || 100 < numero) throw new InsercioDadesException("ERROR DE OPCIÓN NO VÁLIDA");
+        if (numero < 0 || 100 < numero) throw new InsercionDatosException("ERROR DE OPCIÓN NO VÁLIDA");
     }
     
     

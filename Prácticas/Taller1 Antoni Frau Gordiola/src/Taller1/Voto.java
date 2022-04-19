@@ -37,12 +37,12 @@ public class Voto {
             System.out.print("Número del disco al que quieres votar [1..100]? ");
             posicionAlbum = LT.readInt();
             if (posicionAlbum < 1 || 100 < posicionAlbum)
-                throw new InsercioDadesException("Error de inserción de datos");
+                throw new InsercionDatosException("Error de inserción de datos");
             System.out.print("Puntuación [1..10]: ");
             puntuacion = LT.readInt();
             if (puntuacion < 1 || 10 < puntuacion)
-                throw new InsercioDadesException("Error de inserción de datos");
-        } catch (InsercioDadesException e) {
+                throw new InsercionDatosException("Error de inserción de datos");
+        } catch (InsercionDatosException e) {
             System.err.println("ERROR: " + e.toString());
         } catch (NumberFormatException e) {
             System.err.println("ERROR: " + e.toString());

@@ -55,11 +55,11 @@ public class FicheroAlbumInOut {
             }
             else
             {
-                throw new InsercioDadesException("EL ÁLBUM A LEER NO EXISTE");
+                throw new InsercionDatosException("EL ÁLBUM A LEER NO EXISTE");
             }
         } catch (IOException e) {
             System.err.println("ERROR: " + e.toString());
-        } catch (InsercioDadesException e) {
+        } catch (InsercionDatosException e) {
             System.err.println("ERROR: " + e.toString());
         } catch (Exception e) {
             System.err.println("ERROR: " + e.toString());
@@ -106,11 +106,11 @@ public class FicheroAlbumInOut {
             }
             else
             {
-                throw new InsercioDadesException("EL ÁLBUM A REESCRIBIR NO EXISTE. POS "+posicion);
+                throw new InsercionDatosException("EL ÁLBUM A REESCRIBIR NO EXISTE. POS "+posicion);
             }
         } catch (IOException e) {
             System.err.println("ERROR: " + e.toString());
-        } catch (InsercioDadesException e) {
+        } catch (InsercionDatosException e) {
             System.err.println("ERROR: " + e.toString());
         } catch (Exception e) {
             System.err.println("ERROR: " + e.toString());
