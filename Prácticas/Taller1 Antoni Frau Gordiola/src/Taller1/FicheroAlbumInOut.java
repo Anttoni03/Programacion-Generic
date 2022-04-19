@@ -4,8 +4,12 @@ import java.io.*;
 
 public class FicheroAlbumInOut {
     
+    //DECLARACIÓN DE ATRIBUTOS
+    //Atributo de objeto que indica el fichero con el que se trabaja
     private RandomAccessFile fichero;
     
+    //MÉTODOS
+    //Método constructor con el nombre del fichero
     public FicheroAlbumInOut(String nombreFichero)
     {
         try{
@@ -17,6 +21,9 @@ public class FicheroAlbumInOut {
         }
     }
     
+    //MÉTODOS FUNCIONALES
+    //Método lectura que realiza la lectura de un AlbumVotos en la posición del
+    //puntero actual y lo devuelve
     public AlbumVotos lectura()
     {
         AlbumVotos album = new AlbumVotos();
@@ -42,10 +49,16 @@ public class FicheroAlbumInOut {
         return album;
     }
     
+    //Método lectura que realiza la lectura de un AlbumVotos en la posición que
+    //se indique por parámetro y lo devuelve
     public AlbumVotos lectura(int posicion)
     {
+        //Inicialización del álbum a leer y devolver
         AlbumVotos album = new AlbumVotos();
         try{
+            //Se aplica el puntero a la posición indicada con la dimensión en
+            //bytes del la clase y se realiza la lectura, luego se devuleve el
+            //puntero a la posición inicial
             if (0 < posicion && posicion <= fichero.length() / AlbumVotos.getDimension())
             {
                 long pointer = fichero.getFilePointer();
@@ -68,6 +81,7 @@ public class FicheroAlbumInOut {
         return album;
     }
     
+    //Método escritura que escribe el AlbumVotos indicado al final del fichero
     public void escritura(AlbumVotos album)
     {
         try{
@@ -88,6 +102,8 @@ public class FicheroAlbumInOut {
         }
     }
     
+    //Método escritura que escribe el AlbumVotos indicado en la posición
+    //indicada con la longitud en bytes de la clase AlbumVotos
     public void escritura(AlbumVotos album, int posicion)
     {
         try{
@@ -117,15 +133,23 @@ public class FicheroAlbumInOut {
         }
     }
     
+    //Método votar que cambia un AlbumVoto del fichero indicado por el voto y
+    //lo reescribe en la misma posición
     public void votar(Voto voto)
     {
+        //Declaración del álbum a leer y cambiar
         AlbumVotos album;
+        
+        //Lectura y cambio de votos del álbum
         album = lectura(voto.getPosicion());
         album.setVotos(album.getVotos() + voto.getPuntuacion());
+        
+        //Reescritura del objeto en su posición original
         escritura(album, voto.getPosicion());
     }
     
-    
+    //Método lecturaString que devuelve un String con los carácteres indicados
+    //del fichero
     private String lecturaString(int cantidadCaracteres)
     {
         String temp = "";
@@ -145,6 +169,8 @@ public class FicheroAlbumInOut {
         }
     }
     
+    //Método escrituraString que gestiona la escritura de un texto indicado con
+    //la longitud de carácteres indicada al fichero
     private String escrituraString(String texto, int cantidadCaracteres)
     {
         String temp = "";
@@ -167,6 +193,7 @@ public class FicheroAlbumInOut {
         }
     }
     
+    //Método cerrarEnlace que cierra el enlace con el fichero
     public void cerrarEnlace()
     {
         try{

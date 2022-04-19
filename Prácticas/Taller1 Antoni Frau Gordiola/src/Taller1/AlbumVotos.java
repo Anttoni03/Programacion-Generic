@@ -2,8 +2,7 @@ package Taller1;
 
 public class AlbumVotos {
     
-    private static final int DIMENSION = 264;
-    
+    //DECLARACIÓN DE ATRIBUTOS    
     //Atributo que define la posición del álbum                 04 bytes
     private int posicion;
     //Atributo que define los votos totales del álbum           04 bytes
@@ -20,24 +19,20 @@ public class AlbumVotos {
     private String tipo;
     //Atributo que define las estrellas del álbum               08 bytes
     private double estrellas;
+    //Atributo de clase que indica la dimensión en bytes que ocupa un objeto de
+    //la clase en el fichero
+    private static final int DIMENSION = 264;
     
-    
+    //MÉTODOS
+    //Método constructor para instanciar objetos AlbumVotos
     public AlbumVotos()
     {
         posicion = 0;
         votos = 0;
     }
-    
-    public AlbumVotos(int posicion, String titulo, String artista, int any)
-    {
-        this.posicion = posicion;
-        this.votos = 0;
-        this.titulo = titulo;
-        this.artista = artista;
-        this.any = any;
-    }
-    
-    
+     
+    //MÉTODOS FUNCIONALES
+    //Métodos setters de los atributos de objeto
     public void setPosicion(int posicion)
     {
         this.posicion = posicion;
@@ -71,6 +66,7 @@ public class AlbumVotos {
         this.ediciones = ediciones;
     }
     
+    //Métodos getters de los atributos de objeto
     public int getPosicion()
     {
         return posicion;
@@ -105,18 +101,21 @@ public class AlbumVotos {
     }
     
     
+    //Método conversión para aplicar los valores de un objeto Album indicado
+    //a un objeto AlbumVotos
     public void conversion(Album album)
     {
         posicion = album.getPosicion();
         titulo = album.getTitulo();
         artista = album.getArtista();
         any = album.getAny();
-        
         ediciones = album.getEdiciones();
         tipo = album.getTipo();
         estrellas = album.getEstrellas();
     }
     
+    //Método toString para generar un String con los datos generales del álbum
+    @Override
     public String toString()
     {
         String resultado = "# "+posicion
@@ -127,6 +126,7 @@ public class AlbumVotos {
         return resultado;
     }
     
+    //Método mostrarCompleto que genera un String con los datos completos
     public String mostrarCompleto()
     {
         String resultado = "AlbumVotos{num="+posicion+", "
@@ -141,6 +141,8 @@ public class AlbumVotos {
         return resultado;
     }
     
+    //Método mostrarActualizado que genera un String con los datos necesarios
+    //para verse actualizado después de realizarse una votación
     public String mostrarActualizado()
     {
         String resultado = "# "+posicion
@@ -152,6 +154,7 @@ public class AlbumVotos {
         return resultado;
     }
     
+    //Método copiar que devuelve un objeto AlbumVotos idéntico como copia
     public AlbumVotos copiar()
     {
         AlbumVotos album = new AlbumVotos();
@@ -167,6 +170,7 @@ public class AlbumVotos {
         return album;
     }
     
+    //Método de clase getDimension que devuelve el atributo DIMENSION
     public static int getDimension()
     {
         return DIMENSION;

@@ -7,19 +7,16 @@ import java.io.*;
 public class FicheroAlbumLectura {
     
     //DECLARACIÓN DE ATRIBUTOS
-    //atributo de objeto que indica el fichero a leer
+    //Atributo de objeto que indica el fichero a leer
     private BufferedReader fichero;
-    
-    private int cantidadObjetos;
-    //atributo de clase que indica el código del salto de línea
-    private final char SALTO_LINEA = '\n';
-    //atributo de clase que indica el código de final de fichero
-    private static final int FINAL_SECUENCIA = -1;
-    
+    //Atributo de objeto que indica la ruta del fichero
     private String rutaFichero;
+    //Atributo de clase que indica el código del salto de línea
+    private final char SALTO_LINEA = '\n';
+    
     
     //MÉTODOS
-    //método constructor con la ruta del fichero a leer
+    //Método constructor con la ruta del fichero a leer
     public FicheroAlbumLectura(String rutaFichero)
     {
         try{
@@ -31,23 +28,9 @@ public class FicheroAlbumLectura {
             System.err.println("ERROR: " + e.toString());
         }
     }
-    
-    
-    //método esLetra que devuelve si un carácter indicado es o no una letra
-    public boolean esLetra(char caracter)
-    {   
-        return (int)caracter >= (int)'a' && (int)caracter <= (int)'z';
-    }
-    
-    //método esLetra que devuelve si un carácter indicado corresponde a un
-    //carácter numérico
-    public boolean esNumero(char caracter)
-    {
-        return (int)caracter >= (int)'0' && (int)caracter <= (int)'9';
-    }
-    
-    
-    //método lecturaEntero que lee una linea y la convierte a entero
+        
+    //MÉTODOS FUNCIONALES    
+    //Método lecturaEntero que lee una linea y la convierte a entero
     public int lecturaEntero()
     {
         int resultado = 0;
@@ -63,7 +46,7 @@ public class FicheroAlbumLectura {
         }
     }
     
-    //método lecturaDouble que lee una linea y la convierte a double
+    //Método lecturaDouble que lee una linea y la convierte a double
     public double lecturaDouble()
     {
         double resultado = 0;
@@ -79,7 +62,7 @@ public class FicheroAlbumLectura {
         }
     }
     
-    //método lecturaLinea que lee una linea y la devuelve
+    //Método lecturaLinea que lee una linea y la devuelve
     public String lecturaLinea()
     {
         String resultado = "";
@@ -95,37 +78,41 @@ public class FicheroAlbumLectura {
         }
     }
     
-    //método lecturaAlbum que lee los atributos necesarios para generar un
+    //Método lecturaAlbum que lee los atributos necesarios para generar un
     //objeto Album y lo devuelve
     public Album lecturaAlbum()
     {
-        Album album = null;
-        try{
-            album = new Album();
-            album.setPosicion(lecturaEntero());
-            album.setAny(lecturaEntero());
-            album.setTitulo(lecturaLinea());
-            album.setArtista(lecturaLinea());
-            album.setTipo(lecturaLinea());
-            album.setEstrellas(lecturaDouble());
-            album.setEdiciones(lecturaEntero());
-        } finally {
-            return album;
-        }
+        Album album = new Album();
+        
+        album.setPosicion(lecturaEntero());
+        album.setAny(lecturaEntero());
+        album.setTitulo(lecturaLinea());
+        album.setArtista(lecturaLinea());
+        album.setTipo(lecturaLinea());
+        album.setEstrellas(lecturaDouble());
+        album.setEdiciones(lecturaEntero());
+        
+        return album;
     }
     
-    public int getCantidadObjetos()
+    //Método contarObjetos que cuenta la cantidad de lineas y devuelve la
+    //cantidad de objetos Album según su longitud en el fichero por el
+    //atributo de la propia clase Album
+    public int contarObjetos()
     {
-        return cantidadObjetos;
-    }
-    
-    public void contarObjetos()
-    {
+        //Declarar el fichero2 para hacer un recorrido de los carácteres del
+        //fichero y contar así sus lineas
+        RandomAccessFile fichero2;
+        //Inicializar el contador de líneas del fichero a 1 y declarar el
+        //codigo de lectura para los carácteres del fichero2
         int contador = 1;
         int codigo;
+        
         try{
-            RandomAccessFile fichero2 = new RandomAccessFile(rutaFichero, "r");
+            fichero2 = new RandomAccessFile(rutaFichero, "r");
             codigo = fichero2.read();
+            
+            //Bucle de recorrido para contar los carácteres de salto de línea
             while (codigo != -1)
             {
                 if (codigo == SALTO_LINEA) contador++;
@@ -136,11 +123,13 @@ public class FicheroAlbumLectura {
         } catch (Exception e) {
             System.err.println("ERROR: " + e.toString());
         } finally {
-            cantidadObjetos = contador / Album.getCantidadLineas();
+            //Devolver las líneas dividido entre las líneas por objeto de la
+            //clase Album para obtener la cantidad de objetos en la clase
+            return contador / Album.getCantidadLineas();
         }
     }
     
-    //método cerrarEnlace que cierra el enlace con el fichero
+    //Método cerrarEnlace que cierra el enlace con el fichero
     public void cerrarEnlace()
     {
         try
