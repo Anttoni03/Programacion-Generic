@@ -23,29 +23,26 @@ public class ProgramaPrincipal {
                     case 1:
                         titulo("CONTENIDO DE FICHERO DE ALBUMS");
                         contenidoFicheroAlbums();
-                        continuar();
                         break;
                     case 2:
                         titulo("CONTENIDO DE FICHERO DE ALBUMS CON VOTOS");
                         contenidoFicheroAleatorio();
-                        continuar();
                         break;
                     case 3:
                         titulo("VOTACIÓN MANUAL");
                         votoManual();
-                        continuar();
                         break;
                     case 4:
                         titulo("VOTACIÓN ALEATORIA");
                         simularVotos();
-                        continuar();
                         break;
                     case 5:
                         titulo("MEJOR ÁLBUM");
                         calcularMejorAlbum();
-                        continuar();
                         break;
                 }
+                if (opcion != 0)
+                    continuar();
             } catch (NumberFormatException e){
                 System.err.println("ERROR: " + e.toString());
             } catch (InsercioDadesException e){
@@ -95,28 +92,91 @@ public class ProgramaPrincipal {
     
     private void contenidoFicheroAleatorio()
     {
+        FicheroAlbumInOut fichero = new FicheroAlbumInOut("AlbumsVotes.dat");
+        AlbumVotos album;
         
+        album = fichero.lectura();
+        while (album != null && album.getPosicion() != 0)
+        {
+            System.out.println(album.toString());
+            album = fichero.lectura();
+        }
+        fichero.cerrarEnlace();
     }
     
     private void votoManual()
     {
-        
+        FicheroAlbumInOut fichero = new FicheroAlbumInOut("AlbumsVotes.dat");
+        Voto voto = new Voto();
+        voto.lecturaManual();
+        fichero.votar(voto);
+        AlbumVotos album = fichero.lectura(voto.getPosicion());
+        System.out.println(album.mostrarActualizado());
+        fichero.cerrarEnlace();
     }
     
     private void simularVotos()
     {
-        
+        System.out.print("Número de votaciones que quieres generar [1..100]? ");
+        FicheroAlbumInOut fichero = new FicheroAlbumInOut("AlbumsVotes.dat");
+        int votaciones;
+        try{
+            votaciones = LT.readInt();
+            comprobarVotaciones(votaciones);
+            
+            for (int i = 1; i <= votaciones; i++)
+            {
+                System.out.print("Vot: "+i+"\t ");
+                for (int j = 1; j <= 10; j++)
+                {
+                    Voto voto = new Voto();
+                    voto.lecturaAleatoria(j);
+                    fichero.votar(voto);
+                    System.out.print(voto.toString()+" ");
+                }
+                espaciado(1);
+            }
+        } catch (InsercioDadesException e) {
+            System.err.println("ERROR: " + e.toString());
+        } catch (NumberFormatException e) {
+            System.err.println("ERROR: " + e.toString());
+        } catch (Exception e) {
+            System.err.println("ERROR: " + e.toString());
+        } finally {
+            fichero.cerrarEnlace();
+        }
     }
     
     private void calcularMejorAlbum()
     {
+        FicheroAlbumInOut fichero = new FicheroAlbumInOut("AlbumsVotes.dat");
+        AlbumVotos album, mejorAlbum;
         
+        album = fichero.lectura();
+        mejorAlbum = album.copiar();
+        while (album != null && album.getPosicion() != 0)
+        {
+            if (mejorAlbum.getVotos() < album.getVotos())
+                mejorAlbum = album.copiar();
+            
+            album = fichero.lectura();
+        }
+        
+        System.out.println("El mejor álbum es:");
+        System.out.println(mejorAlbum.mostrarCompleto());
+        
+        fichero.cerrarEnlace();
     }
     
     private void comprobarOpcion(int nombre) throws InsercioDadesException
     {
         if (nombre < 0 || 5 < nombre) throw new InsercioDadesException("ERROR DE OPCIÓN NO VÁLIDA");
     }
+    private void comprobarVotaciones(int numero) throws InsercioDadesException
+    {
+        if (numero < 0 || 100 < numero) throw new InsercioDadesException("ERROR DE OPCIÓN NO VÁLIDA");
+    }
+    
     
     private void continuar()
     {
@@ -137,6 +197,6 @@ public class ProgramaPrincipal {
     {
         espaciado(2);
         System.out.print("<<<<<   "+texto+"   >>>>>");
-        espaciado(1);
+        espaciado(2);
     }
 }

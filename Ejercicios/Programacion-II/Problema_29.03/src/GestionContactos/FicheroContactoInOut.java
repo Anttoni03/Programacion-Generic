@@ -153,5 +153,4 @@ public class FicheroContactoInOut {
             System.err.println("ERROR AL CERRAR EL FICHERO: " + e.toString());
         }
     }
-    
 }

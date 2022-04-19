@@ -27,8 +27,13 @@ public class FicheroAlbumInOut {
             album.setTitulo(lecturaString(40));
             album.setArtista(lecturaString(40));
             album.setAny(fichero.readInt());
+            album.setEdiciones(fichero.readInt());
+            album.setTipo(lecturaString(40));
+            album.setEstrellas(fichero.readDouble());
+        } catch (EOFException e) {
             
-        } catch (IOException e) {
+        }
+        catch (IOException e) {
             System.err.println("ERROR: " + e.toString());
         } catch (Exception e) {
             System.err.println("ERROR: " + e.toString());
@@ -43,8 +48,10 @@ public class FicheroAlbumInOut {
         try{
             if (0 < posicion && posicion <= fichero.length() / AlbumVotos.getDimension())
             {
+                long pointer = fichero.getFilePointer();
                 fichero.seek((posicion - 1) * AlbumVotos.getDimension());
                 album = lectura();
+                fichero.seek(pointer);
             }
             else
             {
@@ -71,6 +78,9 @@ public class FicheroAlbumInOut {
             fichero.writeChars(escrituraString(album.getTitulo(), 40));
             fichero.writeChars(escrituraString(album.getArtista(), 40));
             fichero.writeInt(album.getAny());
+            fichero.writeInt(album.getEdiciones());
+            fichero.writeChars(escrituraString(album.getTipo(), 40));
+            fichero.writeDouble(album.getEstrellas());
         } catch (IOException e) {
             System.err.println("ERROR: " + e.toString());
         } catch (Exception e) {
@@ -90,6 +100,9 @@ public class FicheroAlbumInOut {
                 fichero.writeChars(escrituraString(album.getTitulo(), 40));
                 fichero.writeChars(escrituraString(album.getArtista(), 40));
                 fichero.writeInt(album.getAny());
+                fichero.writeInt(album.getEdiciones());
+                fichero.writeChars(escrituraString(album.getTipo(), 40));
+                fichero.writeDouble(album.getEstrellas());
             }
             else
             {
@@ -102,6 +115,14 @@ public class FicheroAlbumInOut {
         } catch (Exception e) {
             System.err.println("ERROR: " + e.toString());
         }
+    }
+    
+    public void votar(Voto voto)
+    {
+        AlbumVotos album;
+        album = lectura(voto.getPosicion());
+        album.setVotos(album.getVotos() + voto.getPuntuacion());
+        escritura(album, voto.getPosicion());
     }
     
     
@@ -155,10 +176,5 @@ public class FicheroAlbumInOut {
         } catch (Exception e) {
             System.err.println("ERROR: " + e.toString());
         }
-    }
-    
-    public void reiniciar()
-    {
-        
     }
 }

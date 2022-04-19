@@ -15,7 +15,7 @@ public class Album {
     //MÉTODOS CONSTRUCTORES
     public Album()
     {
-        
+        posicion = 0;
     }
     
     
@@ -84,16 +84,15 @@ public class Album {
         return CANTIDAD_LINEAS;
     }
     
-    
     public String toString()
     {
         String resultado = "Album{num="+posicion+", "
-                + "any="+any+", "
-                + "impres="+ediciones+", "
-                + "titol="+titulo+", "
+                + "año="+any+", "
+                + "impresiones="+ediciones+", "
+                + "título="+titulo+", "
                 + "artista="+artista+", "
-                + "tipus="+tipo+", "
-                + "estrelles="+estrellas+"}";
+                + "tipo="+tipo+", "
+                + "estrellas="+estrellas+"}";
         
         return resultado;
     }
