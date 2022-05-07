@@ -1,4 +1,0 @@
-método procedimiento - método que no devuelve nada
-método función - método que devuelve algún valor
-
-No poner palabras -> 20 chars max

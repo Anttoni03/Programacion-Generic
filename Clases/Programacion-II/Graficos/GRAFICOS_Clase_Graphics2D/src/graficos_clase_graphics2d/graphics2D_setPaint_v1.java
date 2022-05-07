@@ -89,7 +89,7 @@ public class graphics2D_setPaint_v1 {
             try {
                 imagen = ImageIO.read (new File("luna.jpg"));
             }catch (IOException e) {}
-            Rectangle rectanguloTextura = new Rectangle(10, 10, 20,20);
+            Rectangle rectanguloTextura = new Rectangle(10, 10, 60,30);
             TexturePaint tp = new TexturePaint(imagen, rectanguloTextura);
             Rectangle2D rectangulo1=new Rectangle2D.Float(40,30,300,200);
             g2.setPaint(tp);
