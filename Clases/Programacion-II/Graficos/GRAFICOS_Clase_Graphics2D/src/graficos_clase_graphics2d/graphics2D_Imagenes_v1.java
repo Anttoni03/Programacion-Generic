@@ -74,7 +74,8 @@ public class graphics2D_Imagenes_v1 {
             if (imagen == null) {
                 return new Dimension(200, 200);
             } else {
-                return new Dimension(imagen.getWidth(), imagen.getHeight());
+                //return new Dimension(imagen.getWidth(), imagen.getHeight());
+                return new Dimension(200,200);
             }
         }
     }    

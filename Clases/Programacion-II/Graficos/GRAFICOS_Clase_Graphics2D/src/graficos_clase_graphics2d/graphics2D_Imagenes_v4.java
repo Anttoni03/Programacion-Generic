@@ -58,7 +58,7 @@ public class graphics2D_Imagenes_v4 {
     private class panelImagen extends JComponent {
         private BufferedImage fondo=null,motivo=null;
         private int x=-70,y=200;   
-        private final int RETARDO=10;
+        private final int RETARDO=5;
 
         public panelImagen(String nombreFondo,String nombreMotivo) {
             try {
