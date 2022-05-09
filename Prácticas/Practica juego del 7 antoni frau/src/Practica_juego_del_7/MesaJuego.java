@@ -13,13 +13,8 @@ public class MesaJuego {
     public MesaJuego()
     {
         Baraja.inicializarBaraja();
-        cartasMesa = new Carta[jugadores.length * Baraja.getCantidadPalo()];
+        //cartasMesa = new Carta[jugadores.length * Baraja.getCantidadPalo()];
         
-        inicializarMesa();
-    }
-    
-    public void inicializarMesa()
-    {
         for (int i = 0; i < jugadores.length; i++) jugadores[i] = new Jugador();
         turnoJugador = 0;
         
