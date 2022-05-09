@@ -14,6 +14,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -29,8 +30,6 @@ public class ClasePrincipal {
     private final int ANCHO = 900, ALTO = 700;
     //Atributo que gestiona las acciones y registros de la mesa de juego
     private MesaJuego mesa;
-    //Atributo que indica las cartas que actualmente tiene la mesa
-    private Carta[] cartasMesa;
     
     PanelCarta[] cartasIA;
     
@@ -64,7 +63,6 @@ public class ClasePrincipal {
         
         //reiniciarPartida();
         mesa = new MesaJuego();
-        cartasMesa = mesa.getCartas();
         
         
         
@@ -79,8 +77,6 @@ public class ClasePrincipal {
         panelMesa.setBackground(new Color(40,150,40));
         panelContenidos.add(panelMesa);
         //==================================================================
-        
-        
         
         
         
@@ -109,14 +105,12 @@ public class ClasePrincipal {
                 }
             };
             cartasIA[i].setImagen("Cartes/card_back_blue.png");
+            
             panelJugadoresIA.add(cartasIA[i]);
         }
         
         panelMesa.add(panelJugadoresIA);
         //===================================================================
-        
-        
-        
         
         
         
@@ -153,7 +147,6 @@ public class ClasePrincipal {
         
         
         
-        
         //===================================================================
         //Panel de etiqueta del jugador
         textoJugador = new TextoJugador();
@@ -163,10 +156,7 @@ public class ClasePrincipal {
         
         
         
-        
-        
-        
-        
+
         
         
         //==================================================================
@@ -183,14 +173,30 @@ public class ClasePrincipal {
         panelJugador.setBackground(new Color(40,150,40));
         for (int i = 0; i < cartasJugador.length; i++)
         {
-            cartasJugador[i] = new BotonCarta(i);
-            //cartasJugador[i].setImagen(mesa.getJugador(0).getCarta(i).getImagen());
+            cartasJugador[i] = new BotonCarta();
             panelJugador.add(cartasJugador[i]);
+            cartasJugador[i].addActionListener(new ActionListener()
+            {
+                public void actionPerformed(ActionEvent evento)
+                {
+                    int indice = 0;
+                    while (!cartasJugador[indice].equals(evento.getSource()))
+                        indice++;
+                    
+                    if (mesa.jugarTurno(indice))
+                    {
+                        cartasJugador[indice].verImagen(false);
+                        cartasJugador[indice].setEnabled(false);
+                        actualizarVisualizadoCartas();
+                    }
+                    
+                    for (int j = 0; j < cartas.length; j++) cartas[j].verImagen(true);
+                }
+            });
         }
         
         panelMesa.add(panelJugador);
         //==================================================================
-        
         
         
         
@@ -213,7 +219,6 @@ public class ClasePrincipal {
         botonBarajar.addActionListener((ActionEvent event) -> {
             
             mesa.barajarCartas();
-            cartasMesa = mesa.getCartas();
             actualizarVisualizadoCartas();
             
             botonAccion.setEnabled(true);
@@ -232,7 +237,6 @@ public class ClasePrincipal {
                     
                     break;
                 case "Turno jugador":
-                    
                     break;
             }
         });
@@ -254,8 +258,6 @@ public class ClasePrincipal {
         
         
         
-        
-        
         //==================================================================
         //Panel de interfaz del texto
         JPanel panelInterfaz = new JPanel();
@@ -267,20 +269,12 @@ public class ClasePrincipal {
         //==================================================================
         
         
-
         
         
-        
-        //===============================================================
-        //Procesos iniciales
-        
+        //Procesos para inicializar
         reiniciarPartida();
         
-        //================================================================
-        
 
-        
-        
         //ajuste dimensión contenedor JFrame ventana en función de las entidades
         //introducidas en él
         ventana.setSize(ANCHO+20, ALTO);
@@ -297,7 +291,6 @@ public class ClasePrincipal {
     {
         //Reiniciar la mesa de juego y las cartas a usar
         mesa = new MesaJuego();
-        cartasMesa = mesa.getCartas();
         
         //Reiniciar las puntuaciones de los bots
         for (int i = 0; i < cartasIA.length; i++) cartasIA[i].reiniciar();
@@ -307,14 +300,14 @@ public class ClasePrincipal {
         actualizarVisualizadoCartas();
         
         //Reiniciar contador de cartas del jugador
-        textoJugador.setValor(0);
+        textoJugador.reiniciar();
         
         //Reiniciar cartas del jugador
         for (int i = 0; i < cartasJugador.length; i++) cartasJugador[i].reiniciar();
         
         //Reiniciar la interfaz y botones
         botonBarajar.setVisible(true);
-        botonAccion.setText("Jugar");
+        botonAccion.setText("Juega");
         botonAccion.setEnabled(false);
         botonReinicio.setEnabled(false);
         
@@ -325,26 +318,50 @@ public class ClasePrincipal {
     {
         //Dar las cartas a los jugadores
         mesa.repartirCartas();
+        actualizarVisualizadoCartas();
         
-        //Actualizar las puntuaciones de los bots
-        actualizarCartasIA();
+        //Actualizar los contadores de los jugadores humano e IAs
+        actualizarContadorJugadores();
+        for (int i = 0; i < cartasIA.length; i++)
+            cartasIA[i].verImagen(true);            
+        
+        //Actualizar las cartas de la mesa
+        //mesa.reiniciarCartas();
+        //actualizarVisualizadoCartas();
+        for (int i = 0; i < cartas.length; i++) cartas[i].verImagen(false);
+        
+        //Actualizar las cartas del jugador
+        actualizarCartasJugador();
+        
+        //Actualizar la interfaz y botones
+        botonBarajar.setVisible(false);
+        botonAccion.setText("Pasa");
     }
     
-    private void actualizarCartasIA()
+    private void finalPartida(int ganador)
     {
-        for (int i = 0; i < cartasIA.length; i++)
-        {
-            cartasIA[i].verImagen(true);
-            cartasIA[i].setValor(mesa.getJugador(i+1).getCantidadCartas());
-        }
+        
     }
     
     private void actualizarVisualizadoCartas()
     {
         for (int i = 0; i < cartas.length; i++)
-        {
-            cartas[i].setImagen(cartasMesa[i].getImagen());
-        }
+            cartas[i].setImagen(mesa.getCartas()[i].getImagen());
+    }
+    
+    private void actualizarContadorJugadores()
+    {
+        textoJugador.setValor(mesa.getJugador(0).getCantidadCartas());
+        textoJugador.repaint();
+        
+        for (int i = 0; i < cartasIA.length; i++)
+            cartasIA[i].setValor(mesa.getJugador(i+1).getCantidadCartas());
+    }
+    
+    private void actualizarCartasJugador()
+    {
+        for (int i = 0; i < cartasJugador.length; i++)
+            cartasJugador[i].iniciar(mesa.getJugador(0).getCarta(i).getImagen());
     }
     
     private class PanelCarta extends JPanel
@@ -397,6 +414,7 @@ public class ClasePrincipal {
         public void verImagen(boolean a)
         {
             visualizar = a;
+            repaint();
         }
         
         public void setValor(int i)
@@ -415,16 +433,8 @@ public class ClasePrincipal {
     {
         private BufferedImage imagen = null;
         private boolean visualizar;
-        private int orden;
         
-        public BotonCarta(int ord)
-        {
-            orden = ord;
-            visualizar = false;
-            
-            if (orden != 0)
-                setVisible(false);
-        }
+        public BotonCarta() {}
         
         public void paintComponent(Graphics g)
         {
@@ -442,7 +452,9 @@ public class ClasePrincipal {
         public void reiniciar()
         {
             visualizar = false;
+            setVisible(false);
             setEnabled(false);
+            repaint();
         }
         
         public Dimension getPreferredSize()
@@ -450,9 +462,18 @@ public class ClasePrincipal {
             return new Dimension(56, 82);
         }
         
-        public void setImagen(BufferedImage img)
+        public void verImagen(boolean ver)
+        {
+            visualizar = ver;
+        }
+        
+        public void iniciar(BufferedImage img)
         {
             imagen = img;
+            visualizar = true;
+            setEnabled(true);
+            setVisible(true);
+            repaint();
         }
     }
     
@@ -468,11 +489,22 @@ public class ClasePrincipal {
         public void paintComponent(Graphics g)
         {
             Graphics2D g2 = (Graphics2D) g;
+            g2.setPaint(new Color(40,150,40));
+            Rectangle2D rec = new Rectangle2D.Float(0,0,getWidth(), getHeight());
+            
+            g2.fill(rec);
+            
             g2.setPaint(Color.WHITE);
             g2.setFont(new Font("Comic sans", Font.ITALIC | Font.BOLD, 30));
-            g2.drawString(valor+"", 25, 25);
+            g2.drawString(valor+"", (valor < 10) ? 25 : 16, 25);
         }
 
+        public void reiniciar()
+        {
+            setValor(0);
+            repaint();
+        }
+        
         public void setValor(int i)
         {
             valor = i;

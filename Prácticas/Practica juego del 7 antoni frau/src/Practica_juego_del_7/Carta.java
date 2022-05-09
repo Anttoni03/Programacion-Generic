@@ -13,7 +13,7 @@ enum Palo { PICAS, CORAZONES, ROMBOS, TREBOLES}
 
 public class Carta {
     private int valor = 0;
-    private Palo palo;
+    private Palo palo = Palo.CORAZONES.PICAS;
     private BufferedImage imagen;
     
     public Carta() {}
@@ -64,9 +64,11 @@ public class Carta {
     
     public boolean esContigua(Carta carta)
     {
+        System.out.println("Comparar " + toString() + " con " + carta.toString());
         if (carta.palo != palo) return false;
         if ((carta.valor != valor-1) && (carta.valor != valor+1)) return false;
         
+        System.out.println("Es contigua");
         return true;
     }
     

@@ -13,11 +13,15 @@ public class MesaJuego {
     public MesaJuego()
     {
         Baraja.inicializarBaraja();
-        //cartasMesa = new Carta[jugadores.length * Baraja.getCantidadPalo()];
         
         for (int i = 0; i < jugadores.length; i++) jugadores[i] = new Jugador();
         turnoJugador = 0;
         
+        reiniciarCartas();
+    }
+    
+    public void reiniciarCartas()
+    {
         cartasMesa = Baraja.getNuevaBaraja();
     }
     
@@ -44,26 +48,43 @@ public class MesaJuego {
         }
     }
     
+    //Método de jugar el turno del jugador al que le toque y que devuelve true
+    //si se ha seleccionado una carta válida y false si no
     public boolean jugarTurno(int numero)
     {
         Carta carta;
         
-        if (turnoJugador == 0)
+        if (turnoJugador == 0 && numero == 0)
+            return false;
+        else if (turnoJugador == 0)
             carta = jugadores[turnoJugador].jugadaManual(numero, cartasMesa);
         else
             carta = jugadores[turnoJugador].jugadaIA(cartasMesa);
         
         if (carta != null)
         {
+            System.out.println("Debug(pos carta) - " + Baraja.getPosicionDeCarta(carta));
+            System.out.println("Debug(carta) - " + carta.toString());
             cartasMesa[Baraja.getPosicionDeCarta(carta)] = carta.copiar();
             return true;
         }
-        else return false;
+        System.out.println("A");
+        return false;
     }
     
     public void pasarTurno()
     {
         turnoJugador = (turnoJugador + 1) % jugadores.length;
+    }
+    
+    public int haGanado()
+    {
+        for (int i = 0; i < jugadores.length; i++)
+        {
+            if (jugadores[i].getCantidadCartas() == 0) return i;
+        }
+        
+        return -1;
     }
     
     public Jugador getJugador(int i)
