@@ -4,9 +4,12 @@
  */
 package Practica_juego_del_7;
 
+import javax.swing.ImageIcon;
+
 
 public class Jugador {
     private Carta[] cartas;
+    private ImageIcon imagen;
     
     public Jugador()
     {
@@ -18,6 +21,10 @@ public class Jugador {
         this.cartas = new Carta[cartas.length];
         for (int i = 0; i < this.cartas.length; i++) 
             this.cartas[i] = cartas[i].copiar();
+    }
+    public void setImagen(ImageIcon img)
+    {
+        imagen = img;
     }
     
     public Carta[] getCartas()
@@ -36,6 +43,10 @@ public class Jugador {
             if (cartas[i].esAsignada()) contador++;
             
         return contador;
+    }
+    public ImageIcon getImagen()
+    {
+        return imagen;
     }
     
     public Carta jugadaIA(Carta[] cartasMesa)
@@ -56,7 +67,6 @@ public class Jugador {
     
     public Carta jugadaManual(int i, Carta[] cartasMesa)
     {
-        System.out.println("Check - "+cartas[i].toString());
         if (cartaValida(cartas[i], cartasMesa))
         {
             Carta temp = cartas[i].copiar();
@@ -70,25 +80,12 @@ public class Jugador {
     {
         if (carta.getValor() == 7)
             return true;
-        System.out.println("Not seven");
+        
         for (int j = 0; j < mesa.length; j++)
         {
             if (!mesa[j].esAsignada()) continue;
             
             if (mesa[j].esContigua(carta)) return true;
-            
-            /*if (j != 0)
-            {
-                System.out.println("Caso hacia atrás");
-                if (mesa[j-1].esContigua(carta))
-                    return true;
-            }
-            if (j != mesa.length-1)
-            {
-                System.out.println("Caso hacia delante");
-                if (mesa[j+1].esContigua(carta))
-                    return true;
-            }*/
         }
 
         return false;

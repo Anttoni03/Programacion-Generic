@@ -64,11 +64,10 @@ public class Carta {
     
     public boolean esContigua(Carta carta)
     {
-        System.out.println("Comparar " + toString() + " con " + carta.toString());
+        //System.out.println("Comparar " + toString() + " con " + carta.toString());
         if (carta.palo != palo) return false;
         if ((carta.valor != valor-1) && (carta.valor != valor+1)) return false;
         
-        System.out.println("Es contigua");
         return true;
     }
     

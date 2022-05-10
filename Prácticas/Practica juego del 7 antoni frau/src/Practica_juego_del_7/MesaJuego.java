@@ -4,6 +4,8 @@
  */
 package Practica_juego_del_7;
 
+import javax.swing.ImageIcon;
+
 
 public class MesaJuego {
     private Jugador[] jugadores = new Jugador[4];
@@ -14,7 +16,13 @@ public class MesaJuego {
     {
         Baraja.inicializarBaraja();
         
-        for (int i = 0; i < jugadores.length; i++) jugadores[i] = new Jugador();
+        for (int i = 0; i < jugadores.length; i++)
+        {
+            ImageIcon temp = new ImageIcon("Cartes/Jug"+i+"Riu.png");
+            
+            jugadores[i] = new Jugador();
+            jugadores[i].setImagen(temp);
+        }
         turnoJugador = 0;
         
         reiniciarCartas();
@@ -50,12 +58,12 @@ public class MesaJuego {
     
     //Método de jugar el turno del jugador al que le toque y que devuelve true
     //si se ha seleccionado una carta válida y false si no
-    public boolean jugarTurno(int numero)
+    public Carta jugarTurno(int numero)
     {
         Carta carta;
         
-        if (turnoJugador == 0 && numero == 0)
-            return false;
+        if (turnoJugador == 0 && numero == -1)
+            return null;
         else if (turnoJugador == 0)
             carta = jugadores[turnoJugador].jugadaManual(numero, cartasMesa);
         else
@@ -63,13 +71,10 @@ public class MesaJuego {
         
         if (carta != null)
         {
-            System.out.println("Debug(pos carta) - " + Baraja.getPosicionDeCarta(carta));
-            System.out.println("Debug(carta) - " + carta.toString());
             cartasMesa[Baraja.getPosicionDeCarta(carta)] = carta.copiar();
-            return true;
+            return carta;
         }
-        System.out.println("A");
-        return false;
+        return null;
     }
     
     public void pasarTurno()
@@ -85,6 +90,11 @@ public class MesaJuego {
         }
         
         return -1;
+    }
+    
+    public int getTurnoJugador()
+    {
+        return turnoJugador;
     }
     
     public Jugador getJugador(int i)

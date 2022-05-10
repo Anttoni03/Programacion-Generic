@@ -22,6 +22,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -32,11 +33,8 @@ public class ClasePrincipal {
     private MesaJuego mesa;
     
     PanelCarta[] cartasIA;
-    
     PanelCarta[] cartas;
-    
     TextoJugador textoJugador;
-    
     BotonCarta[] cartasJugador;
     
     JButton botonBarajar;
@@ -45,11 +43,15 @@ public class ClasePrincipal {
     
     JTextField mensajeTexto;
     
+    
+    
     //Método main de inicio del programa
     public static void main(String[] args)
     {
         new ClasePrincipal().metodoPrincipal();
     }
+    
+    
     
     //Método metodoPrincipal que inicia el programa y sus acciones
     private void metodoPrincipal()
@@ -61,7 +63,6 @@ public class ClasePrincipal {
         Container panelContenidos=ventana.getContentPane();
         panelContenidos.setLayout(new BorderLayout());
         
-        //reiniciarPartida();
         mesa = new MesaJuego();
         
         
@@ -95,7 +96,7 @@ public class ClasePrincipal {
         
         floIA.setHgap(80);
         panelJugadoresIA.setLayout(floIA);
-        panelJugadoresIA.setBackground(new Color(40,150,40));
+        panelJugadoresIA.setOpaque(false);
         
         for (int i = 0; i < cartasIA.length; i++) {
             cartasIA[i] = new PanelCarta(false){
@@ -128,7 +129,7 @@ public class ClasePrincipal {
         GridLayout glo = new GridLayout(4,13,5,5);
         cartas = new PanelCarta[52];
         
-        panelCartas.setBackground(new Color(40,150,40));
+        panelCartas.setOpaque(false);
         panelCartas.setLayout(glo);
         
         for (int i = 0; i < cartas.length; i++)
@@ -170,7 +171,8 @@ public class ClasePrincipal {
         cartasJugador = new BotonCarta[13];
         
         panelJugador.setLayout(new GridLayout(1,13, 5, 5));
-        panelJugador.setBackground(new Color(40,150,40));
+        panelJugador.setOpaque(false);
+        
         for (int i = 0; i < cartasJugador.length; i++)
         {
             cartasJugador[i] = new BotonCarta();
@@ -182,15 +184,22 @@ public class ClasePrincipal {
                     int indice = 0;
                     while (!cartasJugador[indice].equals(evento.getSource()))
                         indice++;
-                    
-                    if (mesa.jugarTurno(indice))
+                    Carta temp = mesa.jugarTurno(indice);
+                    if (temp != null)
                     {
                         cartasJugador[indice].verImagen(false);
-                        cartasJugador[indice].setEnabled(false);
+                        for (int i = 0; i < cartasJugador.length; i++)
+                            cartasJugador[i].setEnabled(false);
+                        
+                        actualizarContadorJugadores();
+                        
+                        botonAccion.setText("Turno jugador");
                         actualizarVisualizadoCartas();
+                        
+                        mensajeTexto.setText("Has colocado el ["+temp.toString()+"]");
+                        
+                        hayFinalPartida();
                     }
-                    
-                    for (int j = 0; j < cartas.length; j++) cartas[j].verImagen(true);
                 }
             });
         }
@@ -222,7 +231,9 @@ public class ClasePrincipal {
             actualizarVisualizadoCartas();
             
             botonAccion.setEnabled(true);
-            botonReinicio.setEnabled(true);            
+            botonReinicio.setEnabled(true);
+            
+            mensajeTexto.setText("La baraja está barajada");
         });
         
         botonAccion.addActionListener((ActionEvent event) -> {
@@ -233,10 +244,32 @@ public class ClasePrincipal {
                     comenzarPartida();
                     break;
                 case "Pasa":
-                    mesa.pasarTurno();
-                    
+                    System.out.println("E");
+
+                    for (int i = 0; i < cartasJugador.length; i++)
+                        cartasJugador[i].setEnabled(false);
+
+                    actualizarContadorJugadores();
+
+                    botonAccion.setText("Turno jugador");
+                    mensajeTexto.setText("Has pasado");
                     break;
                 case "Turno jugador":
+                    
+                    mesa.pasarTurno();
+                    turnoIA();
+                    actualizarVisualizadoCartas();
+                    actualizarContadorJugadores();
+            
+                    if (mesa.getTurnoJugador() == cartasIA.length)
+                    {
+                        mesa.pasarTurno();
+                        activarCartasJugador();
+                        botonAccion.setText("Pasa");
+                    }
+                    
+                    hayFinalPartida();
+                    
                     break;
             }
         });
@@ -261,7 +294,7 @@ public class ClasePrincipal {
         //==================================================================
         //Panel de interfaz del texto
         JPanel panelInterfaz = new JPanel();
-        mensajeTexto = new JTextField(98);
+        mensajeTexto = new JTextField(90);
         
         panelContenidos.add(panelInterfaz, BorderLayout.SOUTH);
         mensajeTexto.setEditable(false);
@@ -311,7 +344,7 @@ public class ClasePrincipal {
         botonAccion.setEnabled(false);
         botonReinicio.setEnabled(false);
         
-        mensajeTexto.setText("");
+        mensajeTexto.setText("Antes de comenzar es necesario mezclar la baraja");
     }
     
     private void comenzarPartida()
@@ -326,8 +359,6 @@ public class ClasePrincipal {
             cartasIA[i].verImagen(true);            
         
         //Actualizar las cartas de la mesa
-        //mesa.reiniciarCartas();
-        //actualizarVisualizadoCartas();
         for (int i = 0; i < cartas.length; i++) cartas[i].verImagen(false);
         
         //Actualizar las cartas del jugador
@@ -336,11 +367,49 @@ public class ClasePrincipal {
         //Actualizar la interfaz y botones
         botonBarajar.setVisible(false);
         botonAccion.setText("Pasa");
+        
+        for (int j = 0; j < cartas.length; j++) cartas[j].verImagen(true);
+        
+        mensajeTexto.setText("Las cartas están repartidas. Es tu turno, pon un 7 si tienes");
     }
     
-    private void finalPartida(int ganador)
+    private void turnoIA()
     {
+        Carta temp1 = mesa.jugarTurno(-1);
+        int temp2 = mesa.getTurnoJugador();
+        if (temp1 != null)
+        {
+            mensajeTexto.setText("El BOT " + (temp2) + " ha colocado el ["+temp1.toString()+"]");
+        }
+        else
+        {
+            mensajeTexto.setText("El BOT " + (temp2) + " pasa");
+        }
+    }
+    
+    private void hayFinalPartida()
+    {
+        for (int i = 0; i < 4; i++)
+            if (mesa.getJugador(i).getCantidadCartas() == 0) finalPartida(i);
         
+    }
+    
+    private void finalPartida(int i)
+    {
+        System.out.println("Gana el jugador " + i);
+        botonAccion.setEnabled(false);
+        JOptionPane.showMessageDialog(null
+                , (i == 0)? "HAS GANADO!" : ("HA GANADO EL BOT " + i)
+                , "HEY!"
+                , JOptionPane.INFORMATION_MESSAGE
+                , mesa.getJugador(i).getImagen());
+    }
+    
+    private void activarCartasJugador()
+    {
+        for (int i = 0; i < cartasJugador.length; i++)
+            if (mesa.getJugador(0).getCarta(i).esAsignada())
+                cartasJugador[i].setEnabled(true);
     }
     
     private void actualizarVisualizadoCartas()
@@ -355,7 +424,10 @@ public class ClasePrincipal {
         textoJugador.repaint();
         
         for (int i = 0; i < cartasIA.length; i++)
+        {
             cartasIA[i].setValor(mesa.getJugador(i+1).getCantidadCartas());
+            cartasIA[i].repaint();
+        }
     }
     
     private void actualizarCartasJugador()
@@ -386,8 +458,10 @@ public class ClasePrincipal {
             g2.fill(rec);
             
             if (imagen != null && visualizar)
+            {
                 g2.drawImage(imagen, esCarta?4:0, esCarta?4:0, 
                         getWidth()-(esCarta?4:0), getHeight()-(esCarta?4:0), this);
+            }
             
             if (!esCarta)
             {
@@ -402,6 +476,7 @@ public class ClasePrincipal {
             imagen = img;
             repaint();
         }
+        
         public void setImagen(String img)
         {
             try{
@@ -480,7 +555,7 @@ public class ClasePrincipal {
     private class TextoJugador extends JPanel
     {
         private int valor;
-            
+        
         public Dimension getPreferredSize()
         {
             return new Dimension(ANCHO, 30);
