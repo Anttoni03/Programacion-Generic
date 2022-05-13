@@ -1,14 +1,12 @@
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
-import java.awt.Graphics;
 import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -144,12 +142,18 @@ public class ClasePrincipal {
                 return new Dimension(ANCHO,ANCHO);
             }
         };
+        panelVisualizacion.setLayout(new CardLayout());
         PanelGif panelStandby = new PanelGif("uib.gif");
+        panelStandby.setPreferredSize(new Dimension(ANCHO,400));
         JPanel panelJuego = new JPanel();
         
+        
         panelVisualizacion.setBackground(Color.BLACK);
+        
         panelVisualizacion.add(panelStandby, "Panel standby");
         panelVisualizacion.add(panelJuego, "Panel juego");
+        
+        
         //divisor2.add(panelVisualizacion);
         divisores[2].add(panelVisualizacion);
         //==================================================================
@@ -176,6 +180,7 @@ public class ClasePrincipal {
             
             panelBotones.add(botones[i]);
         }
+        //JButton temp = new JButton(new Action);
         
         panelBotones.setLayout(new GridLayout(1,2));
         divisores[2].add(panelBotones);
@@ -236,7 +241,7 @@ public class ClasePrincipal {
             VALOR.setForeground(Color.RED);
             VALOR.setHorizontalAlignment(0);
             
-            setValor(222);
+            setValor(0);
             
             add(TEXTO);
             add(VALOR, BorderLayout.EAST);
