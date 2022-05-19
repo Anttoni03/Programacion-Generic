@@ -16,6 +16,9 @@ public class Uso_matricesNxM_1 {
         a.lectura();
         //lectura matriz b por teclado
         b.lectura();
+        
+        System.out.println("");
+        
         //visualización matrices a y b
         System.out.println(a.toString());
         System.out.println(b.toString());

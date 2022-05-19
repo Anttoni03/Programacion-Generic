@@ -1,0 +1,29 @@
+public class OrdenacionMatricesInsercionDirecta {
+    public static void main(String [] argumentos) {
+        new OrdenacionMatricesSeleccionDirecta().metodoPrincipal();
+    }
+    
+    private void metodoPrincipal() {
+           try {
+           //declaraciones
+            FicheroMatricesInOut fichero=new FicheroMatricesInOut("matrices.dat");
+            //acciones
+            //Implementación algoritmo Inserción directa
+	    int indice1, indice2;
+            for (indice1=0;i<fichero.getNumMatrices();indice1++) {
+                MatrizNxM matrizMenor=new MatrizNxM();
+                MatrizNxM matrizMenor=fichero.lectura(indice1);
+                for (indice2=indice1;indice2>0;indice2--) { 
+                    MatrizNxM matrizComparar=new MatrizNxM();
+                    objetoMatrizComparar=fichero.lectura(indice2-1);
+	            if (matrizMenor.menor(matrizComparar)) {
+			fichero.escritura(matrizComparar,indice2);
+	 	    }
+		    fichero.escritura(matrizMenor,indice2)
+                }
+            }
+            fichero.cierre();
+       }catch (Exception error) {
+           System.out.println("ERROR: "+error.toString());
+       }        
+    }

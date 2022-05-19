@@ -1,7 +1,7 @@
 /*
 Clase MatrizNxM, donde Ny M son enteros y N>=1 y M>=1
  */
-package vectoresmatrices_i;
+package problemasmatriciales;
 public class MatrizNxM implements java.io.Serializable{
     // ATRIBUTOS
     private int dimension1,dimension2;
@@ -261,4 +261,35 @@ public class MatrizNxM implements java.io.Serializable{
         return resultado;
     }
     
+    public void identidad()
+    {
+        for (int fila=0;fila<dimension1;fila++) {
+            for (int columna=0;columna<dimension2;columna++)
+            {
+                elementos[fila][columna] = (fila == columna)? 1 : 0;
+            }
+        }
+    }
+    
+    public void cambiarFilas(int origen, int destino)
+    {
+        try
+        {
+            if (origen < dimension1 && destino < dimension1)
+            {
+                double[] filaTemporal = elementos[origen];
+                elementos[origen] = elementos[destino];
+                elementos[destino] = filaTemporal;
+            }
+            else
+                throw new matricesIncompatibles("MATRICES INCOMPATIBLES PARA EL PRODUCTO");
+        }
+        catch (matricesIncompatibles error) {}
+    }
+    
+    public static class matricesIncompatibles extends Exception{
+        public matricesIncompatibles (String mensaje) {
+            super(mensaje);
+        }
+    }
 }

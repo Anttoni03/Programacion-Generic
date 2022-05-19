@@ -99,12 +99,14 @@ public class ClasePrincipal {
         panelJugadoresIA.setOpaque(false);
         
         for (int i = 0; i < cartasIA.length; i++) {
-            cartasIA[i] = new PanelCarta(false){
-                public Dimension getPreferredSize()
-                {
-                    return new Dimension(56,82);
-                }
-            };
+            cartasIA[i] = new PanelCarta(false);
+            cartasIA[i].setPreferredSize(new Dimension(56,82));
+//            {
+//                public Dimension getPreferredSize()
+//                {
+//                    return new Dimension(56,82);
+//                }
+//            };
             cartasIA[i].setImagen("Cartes/card_back_blue.png");
             
             panelJugadoresIA.add(cartasIA[i]);

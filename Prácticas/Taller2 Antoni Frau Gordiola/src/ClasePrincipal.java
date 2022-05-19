@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ImageIcon;
@@ -16,6 +17,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
 
@@ -25,9 +27,16 @@ public class ClasePrincipal {
     
     private final int ANCHO = 580, ALTO = 740;
     
+    private JFrame ventana;
+    PanelJuego panelJuego;
+    JPanel panelVisualizacion;
+    PanelInformativo[] panelesInfo;
+    
     private final String[] ACCIONES = {"NUEVA PARTIDA", "SALIR"};
     private final String[] INFORMACION = {"NIVELES PARTIDA", "NIVELES RESTANTES",
         "NIVEL ACTUAL", "PUNTUACIÓN"};
+    private boolean enPartida = false;
+    private int niveles,puntuacion;
     
     public static void main(String[] args)
     {
@@ -37,10 +46,10 @@ public class ClasePrincipal {
     private void metodoPrincipal()
     {
         //DECLARACIÓN Y DEFINICIÓN CONTENEDOR JFrame
-        JFrame ventana = new JFrame("VISUALIZACIÓN IMAGEN");
+        ventana = new JFrame("VISUALIZACIÓN IMAGEN");
         
         //DECLARACIÓN PANEL JContentPane DEL CONTENEDOR JFrame ventana
-        Container panelContenidos=ventana.getContentPane();    
+        Container panelContenidos = ventana.getContentPane();    
         panelContenidos.setLayout(new BorderLayout());
         
         JSplitPane[] divisores = new JSplitPane[3];
@@ -68,7 +77,6 @@ public class ClasePrincipal {
             menu.add(itemsAcciones[i]);
         }
         
-        //TODO: Poner gestor de eventos en nuevaPartidaItem y salirItem
         ventana.setJMenuBar(barraMenu);         //Esta línea no es necesaria, pero allí está ¯\_( ͡° ͜ʖ ͡°)_/¯
         barraMenu.add(menu);
         
@@ -84,15 +92,9 @@ public class ClasePrincipal {
         
         //===================================================================
         //PANEL SUPERIOR
-        JPanel panelSuperior = new JPanel(){
-            @Override
-            public Dimension getPreferredSize()
-            {
-                return new Dimension(ANCHO,100);
-            }
-        };
+        JPanel panelSuperior = new JPanel();
+        panelSuperior.setPreferredSize(new Dimension(ANCHO,100));
         
-        //panelSuperior.setBackground(Color.GREEN);
         divisores[1].add(panelSuperior);
         //==================================================================
                 
@@ -106,14 +108,9 @@ public class ClasePrincipal {
         
         //==================================================================
         //PANEL DE INFORMACIÓN
-        JPanel panelInformacion = new JPanel(){
-            @Override
-            public Dimension getPreferredSize()
-            {
-                return new Dimension(ANCHO-10,58);
-            }
-        };
-        PanelInformativo[] panelesInfo = new PanelInformativo[INFORMACION.length];
+        JPanel panelInformacion = new JPanel();
+        panelInformacion.setPreferredSize(new Dimension(ANCHO-10,58));
+        panelesInfo = new PanelInformativo[INFORMACION.length];
         
         panelInformacion.setBackground(Color.BLACK);
         panelInformacion.setLayout(new GridLayout(2,2,130,6));
@@ -135,26 +132,18 @@ public class ClasePrincipal {
         
         //==================================================================
         //CONTENEDORES DE VISUALIZACIÓN
-        JPanel panelVisualizacion = new JPanel(){
-            @Override
-            public Dimension getPreferredSize()
-            {
-                return new Dimension(ANCHO,ANCHO);
-            }
-        };
+        panelVisualizacion = new JPanel();
+        PanelStandby panelStandby = new PanelStandby("uib.gif");
+        
+        panelVisualizacion.setPreferredSize(new Dimension(ANCHO,ANCHO-40));
         panelVisualizacion.setLayout(new CardLayout());
-        PanelGif panelStandby = new PanelGif("uib.gif");
-        panelStandby.setPreferredSize(new Dimension(ANCHO,400));
-        JPanel panelJuego = new JPanel();
-        
-        
-        panelVisualizacion.setBackground(Color.BLACK);
+        panelVisualizacion.setBackground(Color.PINK);
         
         panelVisualizacion.add(panelStandby, "Panel standby");
-        panelVisualizacion.add(panelJuego, "Panel juego");
         
+        reiniciarPanelJuego();
         
-        //divisor2.add(panelVisualizacion);
+        //divisores[1].add(panelVisualizacion);
         divisores[2].add(panelVisualizacion);
         //==================================================================
         
@@ -180,7 +169,6 @@ public class ClasePrincipal {
             
             panelBotones.add(botones[i]);
         }
-        //JButton temp = new JButton(new Action);
         
         panelBotones.setLayout(new GridLayout(1,2));
         divisores[2].add(panelBotones);
@@ -211,12 +199,54 @@ public class ClasePrincipal {
         ventana.setVisible(true);
     }
     
-    private void nuevaPartida()
+    private void reiniciarPantalla()
     {
+        for (int i = 0; i < panelesInfo.length; i++)
+        {
+            panelesInfo[i].setValor(0);
+        }
         
+        CardLayout clo = (CardLayout)panelVisualizacion.getLayout();
+        clo.show(panelVisualizacion, "Panel standby");
     }
     
-    private class PanelInformativo extends JPanel{
+    private void reiniciarPanelJuego()
+    {
+        panelJuego = new PanelJuego(new GestorCuadrado());
+        panelJuego.setPreferredSize(new Dimension(ANCHO, ANCHO-40));
+        panelVisualizacion.add(panelJuego, "Panel juego");
+    }
+    
+    private void nuevaPartida()
+    {
+        enPartida = true;
+        reiniciarPanelJuego();
+        puntuacion = 0;
+        
+        niveles = 8; //TODO: Hacer que con ventana emergente se elija complejidad y niveles
+        
+        panelesInfo[0].setValor(niveles);
+        panelesInfo[1].setValor(niveles);
+        panelesInfo[2].setValor(1);
+        
+        CardLayout clo = (CardLayout) panelVisualizacion.getLayout();
+        clo.show(panelVisualizacion, "Panel juego");
+    }
+    
+    private void finalPartida()
+    {
+        JOptionPane.showMessageDialog(ventana
+            , "¡¡¡ LA PARTIDA HA TERMINADO CON UN TOTAL DE "
+                    + puntuacion + " PUNTOS !!!"
+            , "Mensaje"
+            , JOptionPane.INFORMATION_MESSAGE
+            , null);
+        
+        enPartida = false;
+        reiniciarPantalla();
+    }
+    
+    private class PanelInformativo extends JPanel {
         private final JLabel TEXTO;
         private final JLabel VALOR;
         
@@ -256,7 +286,7 @@ public class ClasePrincipal {
         }
     }
     
-    private class GestorAcciones implements ActionListener{
+    private class GestorAcciones implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent event)
         {
@@ -266,7 +296,19 @@ public class ClasePrincipal {
             switch (i)
             {
                 case 0:
-                    nuevaPartida();
+                    if (!enPartida)
+                    {
+                        nuevaPartida();
+                    }
+                    else
+                    {
+                        JOptionPane.showMessageDialog(ventana
+                            , "¡¡¡ NO SE PUEDE INICIAR UNA PARTIDA HABIENDO"
+                                    + " UNA PARTIDA EN CURSO !!!"
+                            , "Mensaje"
+                            , JOptionPane.INFORMATION_MESSAGE
+                            , null);
+                    }
                     break;
                 case 1:
                     System.exit(0);
@@ -275,17 +317,58 @@ public class ClasePrincipal {
         }
     }
     
-    private class PanelGif extends JPanel{    
+    private class PanelStandby extends JPanel {    
         JLabel etiquetaImagen;
-        public PanelGif(String gif)
+        public PanelStandby(String gif)
         {
-            etiquetaImagen=new JLabel();
+            setPreferredSize(new Dimension(ANCHO-10,ANCHO-40));            
             
-            //etiquetaImagen.setOpaque(true);
-            //setPreferredSize(new Dimension(ANCHO-200,ANCHO-200));
-            //etiquetaImagen.setPreferredSize(new Dimension(ANCHO-200,ANCHO-200));
-            etiquetaImagen.setIcon(new ImageIcon(gif));
+            
+            ImageIcon gif2 = new ImageIcon(gif);
+            Image image = gif2.getImage();
+            image = image.getScaledInstance(ANCHO-10, ANCHO-40, 0);
+            gif2.setImage(image);
+            etiquetaImagen = new JLabel(gif2);
+            
+            
+            etiquetaImagen.setOpaque(true);
             add(etiquetaImagen);
+        }
+    }
+    
+    private class GestorCuadrado implements ActionListener{
+        @Override
+        public void actionPerformed(ActionEvent evento)
+        {
+            Cuadrado cuadrado = (Cuadrado)evento.getSource();
+            
+            if (cuadrado.esDiferente())
+            {
+                cuadrado.setNoDiferente();
+                puntuacion += panelJuego.getNivelActual()+1;
+                panelesInfo[3].setValor(puntuacion);
+            }
+            else
+            {
+                panelJuego.indicarFallo();
+                cuadrado.marcar();
+                JOptionPane.showMessageDialog(ventana
+                        , "¡¡¡ CUADRADO SELECCIONADO ERRÓNEO !!!"
+                        , "Mensaje"
+                        , JOptionPane.INFORMATION_MESSAGE
+                        , null);
+            }
+            
+            if (panelJuego.getNivelActual() != niveles)
+            {
+                panelesInfo[1].setValor(niveles-panelJuego.getNivelActual());
+                panelJuego.actualizar();
+                panelesInfo[2].setValor(panelJuego.getNivelActual());
+            }
+            else
+            {
+                finalPartida();
+            }
         }
     }
 }
