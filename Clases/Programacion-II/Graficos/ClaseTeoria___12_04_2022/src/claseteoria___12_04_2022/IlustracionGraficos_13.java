@@ -132,6 +132,7 @@ public class IlustracionGraficos_13 {
                         }
                         break;
                 case 6: //Salir del programa
+                    System.exit(0);
                         opcion1 = -1;
                         break;
             }

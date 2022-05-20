@@ -11,7 +11,7 @@ public class PanelJuego extends JPanel {
     private int cantidad = 2;
     private Color colorGeneral;
     private Cuadrado[] cuadrados;
-    private int complejidad = 6;
+    private int complejidad;
     private ActionListener gestorEventos;
     
     public PanelJuego(ActionListener al)
@@ -21,8 +21,6 @@ public class PanelJuego extends JPanel {
         colorGeneral = new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256));
         
         gestorEventos = al;
-        
-        generarPanel();
     }
     
     public void generarPanel()
@@ -51,7 +49,7 @@ public class PanelJuego extends JPanel {
         cantidad++;
         
         Random r = new Random();
-        colorGeneral = new Color(r.nextInt(256),r.nextInt(256),r.nextInt(256));
+        colorGeneral = new Color(r.nextInt(196)+30,r.nextInt(196)+30,r.nextInt(196)+30);
         
         generarPanel();
     }

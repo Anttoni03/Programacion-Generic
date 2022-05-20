@@ -15,7 +15,6 @@ public class Cuadrado extends JButton {
     { 
         diferente = true;
         int cambio = (int)((10f/variacion)*10f);
-        System.out.println(cambio);
         Color bg = getBackground();
         Color color = new Color(
                 (bg.getRed()-cambio < 0) ? 0 : bg.getRed()-cambio,

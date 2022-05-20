@@ -20,6 +20,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSplitPane;
+import javax.swing.JTextField;
 
 
 
@@ -223,7 +224,43 @@ public class ClasePrincipal {
         reiniciarPanelJuego();
         puntuacion = 0;
         
-        niveles = 8; //TODO: Hacer que con ventana emergente se elija complejidad y niveles
+        int nivelesTemp = 0,complejidadTemp = 0;
+        
+        do{
+            JPanel emergente = new JPanel();
+            JLabel insertaNiveles = new JLabel("Indica la cantidad de niveles[1..10]: "); 
+            JTextField textoNiveles = new JTextField();
+            JLabel insertaComplejidad = new JLabel("Indica la complejidad de juego[1..10]: "); 
+            JTextField textoComplejidad = new JTextField();
+            
+            emergente.setPreferredSize(new Dimension(230,100));
+            textoNiveles.setPreferredSize(new Dimension(150,20));
+            textoComplejidad.setPreferredSize(new Dimension(150,20));
+            
+            emergente.add(insertaNiveles);
+            emergente.add(textoNiveles);
+            emergente.add(insertaComplejidad);
+            emergente.add(textoComplejidad);
+
+            JOptionPane.showMessageDialog(ventana, emergente);
+
+            if (textoNiveles.getText() != null)
+                nivelesTemp = Integer.parseInt(textoNiveles.getText());
+            else
+                nivelesTemp = 0;
+            
+            if (textoComplejidad.getText() != null)
+                complejidadTemp = Integer.parseInt(textoComplejidad.getText());
+            else
+                complejidadTemp = 0;
+            
+        } while ((nivelesTemp < 1 || 10 < nivelesTemp) || 
+                (complejidadTemp < 1 || 10 < complejidadTemp));
+        
+        niveles = nivelesTemp;
+        panelJuego.setComplejidad(complejidadTemp);
+        
+        panelJuego.generarPanel();
         
         panelesInfo[0].setValor(niveles);
         panelesInfo[1].setValor(niveles);
@@ -336,7 +373,7 @@ public class ClasePrincipal {
         }
     }
     
-    private class GestorCuadrado implements ActionListener{
+    private class GestorCuadrado implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent evento)
         {
