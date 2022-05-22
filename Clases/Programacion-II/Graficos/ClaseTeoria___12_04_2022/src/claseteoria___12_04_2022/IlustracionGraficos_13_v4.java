@@ -63,7 +63,7 @@ public class IlustracionGraficos_13_v4 {
                                          null, //icono de la ventana
                                          opciones, //array de opciones
                                          opciones[0]);//botón por defecto                         
-            
+            System.out.println(respuesta);
 ////////////////////////////////////////////////////////////////////////////////
 //                      DECLARACIÓN COMPONENTES                               //
 ////////////////////////////////////////////////////////////////////////////////  

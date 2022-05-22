@@ -201,7 +201,7 @@ public class ClasePrincipal {
         reiniciarPanelJuego();
         puntuacion = 0;
         //inicializar una cantidad de niveles y complejidad a jugar temporal
-        int nivelesTemp = 0,complejidadTemp = 0;
+        int nivelesTemp = 0,complejidadTemp = 0, accion = -1;
         
         //bucle con el que se darán los datos de la nueva partida
         do{
@@ -211,6 +211,7 @@ public class ClasePrincipal {
             JTextField textoNiveles = new JTextField();
             JLabel insertaComplejidad = new JLabel("Indica la complejidad de juego[1..10]: "); 
             JTextField textoComplejidad = new JTextField();
+            String[] opcion = {"Continuar"};
             
             //aplicar tamaños indicados al panel para recibir datos de juego
             emergente.setPreferredSize(new Dimension(230,100));
@@ -223,8 +224,13 @@ public class ClasePrincipal {
             emergente.add(insertaComplejidad);
             emergente.add(textoComplejidad);
 
-            //mostrar el panel de datos de juego como un mensaje de diálogo
-            JOptionPane.showMessageDialog(ventana, emergente);
+            //mostrar el panel de datos de juego como un mensaje de opción
+            accion = JOptionPane.showOptionDialog(ventana,
+                    emergente,
+                    "Confirmación de datos de la partida",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null, opcion, opcion[0]);
             
             //gestión try-catch para recibir los datos insertados en el panel
             try {
@@ -238,7 +244,8 @@ public class ClasePrincipal {
             }
             
         } while ((nivelesTemp < 1 || 10 < nivelesTemp) || 
-                (complejidadTemp < 1 || 10 < complejidadTemp));
+                (complejidadTemp < 1 || 10 < complejidadTemp) ||
+                accion == -1);
         
         //guardar la cantidad de niveles a jugar y complejidad ya validados
         niveles = nivelesTemp;
@@ -257,19 +264,20 @@ public class ClasePrincipal {
         clo.show(panelVisualizacion, "Panel juego");
     }
     
+    //Método finalPartida que gestiona toda la finalización de partidas jugadas
     private void finalPartida()
     {
+        //mostrar una ventana emergente indicando que se ha terminado
         JOptionPane.showMessageDialog(ventana
             , "¡¡¡ LA PARTIDA HA TERMINADO CON UN TOTAL DE "
                     + puntuacion + " PUNTOS !!!"
             , "Mensaje"
             , JOptionPane.INFORMATION_MESSAGE
             , null);
-        
         enPartida = false;
         
+        //reiniciar los paneles informativos y la imagen de visualizado central
         for (int i = 0; i < panelesInfo.length; i++) panelesInfo[i].setValor(0);
-        
         CardLayout clo = (CardLayout)panelVisualizacion.getLayout();
         clo.show(panelVisualizacion, "Panel standby");
     }
