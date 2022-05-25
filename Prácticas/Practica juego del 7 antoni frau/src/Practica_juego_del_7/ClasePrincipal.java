@@ -246,8 +246,6 @@ public class ClasePrincipal {
                     comenzarPartida();
                     break;
                 case "Pasa":
-                    System.out.println("E");
-
                     for (int i = 0; i < cartasJugador.length; i++)
                         cartasJugador[i].setEnabled(false);
 
