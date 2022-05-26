@@ -266,7 +266,7 @@ public class MatrizNxM implements java.io.Serializable{
         for (int fila=0;fila<dimension1;fila++) {
             for (int columna=0;columna<dimension2;columna++)
             {
-                elementos[fila][columna] = (fila == columna)? 1 : 0;
+                elementos[fila][columna] = (fila == columna) ? 1 : 0;
             }
         }
     }

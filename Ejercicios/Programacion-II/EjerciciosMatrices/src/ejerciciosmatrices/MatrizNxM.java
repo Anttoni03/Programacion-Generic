@@ -4,12 +4,16 @@ Clase MatrizNxM, donde Ny M son enteros y N>=1 y M>=1
 package ejerciciosmatrices;
 public class MatrizNxM implements java.io.Serializable{
     // ATRIBUTOS
-    private int dimension1,dimension2;
+    //4 bytes dimension1 + 4 bytes dimension2 =                      8 bytes
+    private int dimension1 = 0,dimension2 = 0;
+    //8 bytes por elemento =             (dimension1 + dimension2) * 8 bytes
     private double [][] elementos;
     
     // MÉTODOS
     
-    // MÉTODOS CONSTRUCTORES 
+    // MÉTODOS CONSTRUCTORES
+    public MatrizNxM() {}
+    
     public MatrizNxM(int dim1,int dim2) {
         dimension1=dim1;
         dimension2=dim2;
@@ -27,6 +31,34 @@ public class MatrizNxM implements java.io.Serializable{
     
     //método que posibilita la lectura de un objeto MatrizNxM, componente a componente,
     //desde el teclado
+    
+    public static int getDimension(int dim1, int dim2)
+    {
+        int cantidad = 8;
+        cantidad += (dim1 * dim2 * 8);
+        return cantidad;
+    }
+    
+    public int getDim1()
+    {
+        return dimension1;
+    }
+    public int getDim2()
+    {
+        return dimension2;
+    }
+    public double[][] getElementos()
+    {
+        return elementos.clone();
+    }
+    
+    public void setElementos(double[][] elem)
+    {
+        dimension1 = elem.length;
+        dimension2 = elem[0].length;
+        elementos = elem.clone();
+    }
+    
     public void lectura() {
         try {
             System.out.println("LECTURA MATRIZ DE DIMENSION "+dimension1+"x"+dimension2);
@@ -154,8 +186,7 @@ public class MatrizNxM implements java.io.Serializable{
         MatrizNxM resultado=null;
         try {
             //verificar si las dos matrices son compatibles para el producto
-            if ((a.dimension1==b.dimension2)&&
-                 (a.dimension2==b.dimension1)){
+            if (a.dimension2==b.dimension1){
                 resultado=new MatrizNxM(a.dimension1,b.dimension2);
                 for (int fila=0;fila<a.dimension1;fila++) {
                     for (int columna=0;columna<b.dimension2;columna++) {
@@ -176,6 +207,8 @@ public class MatrizNxM implements java.io.Serializable{
         }catch (Exception error) {}
         return resultado;   
     }
+    
+    
     
     //método de objeto que lleva a cabo el producto de dos objetos MatrixNxM dados
     //por parámetro
@@ -261,4 +294,93 @@ public class MatrizNxM implements java.io.Serializable{
         return resultado;
     }
     
+    public void identidad()
+    {
+        for (int fila=0;fila<dimension1;fila++) {
+            for (int columna=0;columna<dimension2;columna++)
+            {
+                elementos[fila][columna] = (fila == columna) ? 1 : 0;
+            }
+        }
+    }
+    
+    public void cambiarFilas(int origen, int destino)
+    {
+        try
+        {
+            if (origen < dimension1 && destino < dimension1)
+            {
+                double[] filaTemporal = elementos[origen];
+                elementos[origen] = elementos[destino];
+                elementos[destino] = filaTemporal;
+            }
+            else
+                throw new Exception("MATRICES INCOMPATIBLES PARA EL PRODUCTO");
+        }
+        catch (Exception error) {}
+    }
+    
+    public void invertir()
+    {
+        MatrizNxM resultado = new MatrizNxM(dimension1, dimension2);
+        try{
+            if (dimension1 == dimension2)
+            {
+                double determinante = determinante();
+                for (int i = 0; i < dimension1; i++)
+                {
+                    for (int j = 0; j < dimension2; j++)
+                    {
+                        resultado.elementos[i][j] = adjunto(i, j).determinante() * ((i+j) % 2 == 0 ? 1 : -1);
+                        resultado.elementos[i][j] /= Math.abs(determinante);
+                    }
+                }
+
+                resultado = resultado.traspuesta();
+                elementos = resultado.elementos.clone();
+            }
+            else
+                throw new Exception("MATRIZ INCOMPATIBLE");
+        } catch (Exception e) {}
+    }
+    
+    public double determinante()
+    {
+        int resultado = 0;
+        
+        if (dimension1 == dimension2)
+        {
+            if (dimension1 == 1) return elementos[0][0];
+            
+            for (int i = 0; i < dimension1; i++)
+            {
+                resultado += adjunto(i, 0).determinante() * (i % 2 == 0 ? 1 : -1) * elementos[i][0];
+            }
+        }
+        
+        return resultado;
+    }
+    
+    public MatrizNxM copiar()
+    {
+        MatrizNxM copia = new MatrizNxM(elementos);
+        return copia;
+    }
+    
+    public MatrizNxM adjunto(int fila, int columna)
+    {
+        MatrizNxM resultado = new MatrizNxM(dimension1-1, dimension2 - 1);
+        for (int i = 0, i2 = 0; i < dimension1; i++)
+        {
+            if (i == fila) continue;
+            for (int j = 0, j2 = 0; j < dimension2; j++)
+            {
+                if (j == columna) continue;
+                resultado.elementos[i2][j2] = elementos[i][j];
+                j2++;
+            }
+            i2++;
+        }
+        return resultado;
+    }
 }
