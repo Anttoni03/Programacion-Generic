@@ -42,7 +42,7 @@ public class FicheroMatricesInOut {
         MatrizNxM mat = null;
         try{
             if (posicion >= 0 && posicion < cantidadMat){
-                fichero.seek(obtenerSeek(posicion));
+                fichero.seek(obtenerSeek(posicion))
                 mat = lectura();
             }
         } catch(IOException e){
