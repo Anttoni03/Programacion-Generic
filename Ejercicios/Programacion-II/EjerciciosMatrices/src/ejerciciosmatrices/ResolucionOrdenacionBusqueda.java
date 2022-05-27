@@ -1,12 +1,6 @@
 
 package ejerciciosmatrices;
 
-import java.io.File;
-
-/**
- *
- * @author tonif
- */
 public class ResolucionOrdenacionBusqueda {
 
     private static final String NOMBRE = "matrices.dat";
@@ -77,14 +71,18 @@ public class ResolucionOrdenacionBusqueda {
         FicheroMatricesInOut fichero = new FicheroMatricesInOut(NOMBRE);
         fichero.actualizarCantidad();
         MatrizNxM matriz;
-
-        for (int i = 0; i<fichero.getCantidadMatrices(); i++)
+        System.out.println("Cantidad total - "+fichero.getCantidadMatrices());
+        for (int i = 0; i<fichero.getCantidadMatrices()-1; i++)
         {
-            int minPosicion = 0;
-            MatrizNxM minMat = fichero.lectura(0);
-            for (int j = i; j < fichero.getCantidadMatrices(); j++)
+            int minPosicion = i;
+            MatrizNxM minMat = fichero.lectura(i);
+            System.out.println("Con i - "+i);
+            System.out.println(minMat.toString()+"\n\n");
+            for (int j = i+1; j < fichero.getCantidadMatrices(); j++)
             {
                 matriz = fichero.lectura(j);
+                System.out.println("Con j - "+ j);
+                System.out.println(matriz.toString()+"\n\n");
                 if (matriz.getDim1() < minMat.getDim1())
                 {
                     minMat = matriz.copiar();
@@ -92,9 +90,11 @@ public class ResolucionOrdenacionBusqueda {
                 }
                 
             }
-            fichero.escritura(fichero.lectura(i),minPosicion);
-            fichero.escritura(minMat, i);
+            MatrizNxM temp = fichero.lectura(i);
+            fichero.escritura(temp,0);
+            //fichero.escritura(minMat, i);
         }
+        System.out.println("Final");
         fichero.cerrarEnlace();
     }
     
@@ -102,6 +102,7 @@ public class ResolucionOrdenacionBusqueda {
     {
         FicheroMatricesInOut fichero = new FicheroMatricesInOut(NOMBRE);
         fichero.actualizarCantidad();
+        System.out.println("Hay cantidad - "+fichero.getCantidadMatrices());
         MatrizNxM matriz;
         
         matriz = fichero.lectura();
@@ -147,9 +148,9 @@ public class ResolucionOrdenacionBusqueda {
     {
         int[] dim = new int[2];
         System.out.println("Indica la dimensión:");
-        System.out.print("[filas]:");
+        System.out.print("[filas]: ");
         dim[0] = LT.readInt();
-        System.out.print("[columnas]");
+        System.out.print("[columnas]: ");
         dim[1] = LT.readInt();
         
         return dim;

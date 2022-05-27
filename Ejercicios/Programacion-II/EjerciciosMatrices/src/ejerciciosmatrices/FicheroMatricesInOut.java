@@ -44,7 +44,7 @@ public class FicheroMatricesInOut {
             if (posicion >= 0 && posicion < cantidadMat){
                 fichero.seek(obtenerSeek(posicion));
                 mat = lectura();
-            }            
+            }
         } catch(IOException e){
             System.err.println("ERROR DE LECTURA CON FICHERO: " + e.toString());
         } catch(Exception e){
@@ -54,8 +54,9 @@ public class FicheroMatricesInOut {
     }
     private double [][] lecturaElementos(int filas, int columnas)
     {
-        double[][] resultado = new double[filas][columnas];
+        double[][] resultado = null;
         try{
+            resultado = new double[filas][columnas];
             for (int i = 0; i < filas; i++)
             {
                 for (int j = 0; j < columnas; j++)
@@ -64,7 +65,7 @@ public class FicheroMatricesInOut {
                 }
             }
         } catch (IOException e){
-            System.err.println("ERROR EN LA LECTURA DEL FICHERO: " + e.toString());
+            
         } finally {
             return resultado;
         }
@@ -78,7 +79,6 @@ public class FicheroMatricesInOut {
             fichero.writeInt(mat.getDim1());
             fichero.writeInt(mat.getDim2());
             escrituraElementos(mat.getElementos());
-            cantidadMat++;
         } catch(IOException e){
             System.err.println("ERROR DE ESCRITURA CON FICHERO: " + e.toString());
         } catch(Exception e){
@@ -88,7 +88,7 @@ public class FicheroMatricesInOut {
     public void escritura(MatrizNxM mat, int posicion)
     {
         try{
-            if (posicion > 0 && posicion <= cantidadMat)
+            if (posicion >= 0 && posicion < cantidadMat)
             {
                 fichero.seek(obtenerSeek(posicion));
 
@@ -125,6 +125,7 @@ public class FicheroMatricesInOut {
             f = new FicheroMatricesInOut(ruta);
             f.fichero.seek(0);
             while (true){
+                System.out.println("File pointer -> "+f.fichero.getFilePointer());
                 if (cantidad == posicion)
                 {
                     long r = f.fichero.getFilePointer();

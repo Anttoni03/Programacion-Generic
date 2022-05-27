@@ -98,7 +98,6 @@ public class FicheroProductosInOut {
                 fichero.writeInt(producto.getCodigo());
                 fichero.writeChars(escrituraString(producto.getDescripcion(),32));
                 fichero.writeDouble(producto.getPrecio());
-                //System.out.println("Hora de escribir-"+producto.getVentas());
                 fichero.writeInt(producto.getVentas());
                 fichero.writeDouble(producto.getIVA());
             }
