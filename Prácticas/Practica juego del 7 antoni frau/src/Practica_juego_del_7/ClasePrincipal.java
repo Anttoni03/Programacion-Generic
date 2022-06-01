@@ -4,27 +4,9 @@
  */
 package Practica_juego_del_7;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
 public class ClasePrincipal {
     //Atributos enteros constantes que indican el ancho y alto de la ventana
@@ -85,28 +67,18 @@ public class ClasePrincipal {
         
         //===================================================================
         //Paneles de indicadores de jugadores IA
-        JPanel panelJugadoresIA = new JPanel(){
-            @Override
-            public Dimension getPreferredSize(){
-                return new Dimension(ANCHO,88);
-            }
-        };
+        JPanel panelJugadoresIA = new JPanel();
         FlowLayout floIA = new FlowLayout();
         cartasIA = new PanelCarta[3];
         
-        floIA.setHgap(80);
+        panelJugadoresIA.setPreferredSize(new Dimension(ANCHO,88));
         panelJugadoresIA.setLayout(floIA);
         panelJugadoresIA.setOpaque(false);
+        floIA.setHgap(80);
         
         for (int i = 0; i < cartasIA.length; i++) {
             cartasIA[i] = new PanelCarta(false);
             cartasIA[i].setPreferredSize(new Dimension(56,82));
-//            {
-//                public Dimension getPreferredSize()
-//                {
-//                    return new Dimension(56,82);
-//                }
-//            };
             cartasIA[i].setImagen("Cartes/card_back_blue.png");
             
             panelJugadoresIA.add(cartasIA[i]);
@@ -122,15 +94,11 @@ public class ClasePrincipal {
         
         //==================================================================
         //Paneles de cartas
-        JPanel panelCartas = new JPanel(){
-            @Override
-            public Dimension getPreferredSize(){
-                return new Dimension(ANCHO,350);
-            }
-        };
+        JPanel panelCartas = new JPanel();
         GridLayout glo = new GridLayout(4,13,5,5);
         cartas = new PanelCarta[52];
         
+        panelCartas.setPreferredSize(new Dimension(ANCHO, 350));
         panelCartas.setOpaque(false);
         panelCartas.setLayout(glo);
         
@@ -154,6 +122,7 @@ public class ClasePrincipal {
         //Panel de etiqueta del jugador
         textoJugador = new TextoJugador();
         
+        textoJugador.setPreferredSize(new Dimension(ANCHO, 30));
         panelMesa.add(textoJugador);
         //==================================================================
         
@@ -164,14 +133,10 @@ public class ClasePrincipal {
         
         //==================================================================
         //Panel de cartas jugador
-        JPanel panelJugador = new JPanel(){
-            @Override
-            public Dimension getPreferredSize(){
-                return new Dimension(ANCHO,90);
-            }
-        };
+        JPanel panelJugador = new JPanel();
         cartasJugador = new BotonCarta[13];
         
+        panelJugador.setPreferredSize(new Dimension(ANCHO, 90));
         panelJugador.setLayout(new GridLayout(1,13, 5, 5));
         panelJugador.setOpaque(false);
         
@@ -179,31 +144,8 @@ public class ClasePrincipal {
         {
             cartasJugador[i] = new BotonCarta();
             panelJugador.add(cartasJugador[i]);
-            cartasJugador[i].addActionListener(new ActionListener()
-            {
-                public void actionPerformed(ActionEvent evento)
-                {
-                    int indice = 0;
-                    while (!cartasJugador[indice].equals(evento.getSource()))
-                        indice++;
-                    Carta temp = mesa.jugarTurno(indice);
-                    if (temp != null)
-                    {
-                        cartasJugador[indice].verImagen(false);
-                        for (int i = 0; i < cartasJugador.length; i++)
-                            cartasJugador[i].setEnabled(false);
-                        
-                        actualizarContadorJugadores();
-                        
-                        botonAccion.setText("Turno jugador");
-                        actualizarVisualizadoCartas();
-                        
-                        mensajeTexto.setText("Has colocado el ["+temp.toString()+"]");
-                        
-                        hayFinalPartida();
-                    }
-                }
-            });
+            //TODO: Separar el action listener :)
+            cartasJugador[i].addActionListener(new GestorEventosCarta());
         }
         
         panelMesa.add(panelJugador);
@@ -216,17 +158,12 @@ public class ClasePrincipal {
         
         //==================================================================
         //Panel de botones de acción de interfaz
-        JPanel panelBotonesInterfaz = new JPanel(){
-            public Dimension getPreferredSize()
-            {
-                return new Dimension(ANCHO+20, 40);
-            }
-        };
-        
+        JPanel panelBotonesInterfaz = new JPanel();
         botonBarajar = new JButton("Baraja");
         botonAccion = new JButton("Juega");
         botonReinicio = new JButton("Reinicia");
         
+        panelBotonesInterfaz.setPreferredSize(new Dimension(ANCHO+20, 40));
         botonBarajar.addActionListener((ActionEvent event) -> {
             
             mesa.barajarCartas();
@@ -238,42 +175,7 @@ public class ClasePrincipal {
             mensajeTexto.setText("La baraja está barajada");
         });
         
-        botonAccion.addActionListener((ActionEvent event) -> {
-            
-            switch (botonAccion.getActionCommand())
-            {
-                case "Juega":
-                    comenzarPartida();
-                    break;
-                case "Pasa":
-                    for (int i = 0; i < cartasJugador.length; i++)
-                        cartasJugador[i].setEnabled(false);
-
-                    actualizarContadorJugadores();
-
-                    botonAccion.setText("Turno jugador");
-                    mensajeTexto.setText("Has pasado");
-                    break;
-                case "Turno jugador":
-                    
-                    mesa.pasarTurno();
-                    turnoIA();
-                    actualizarVisualizadoCartas();
-                    actualizarContadorJugadores();
-            
-                    if (mesa.getTurnoJugador() == cartasIA.length)
-                    {
-                        mesa.pasarTurno();
-                        activarCartasJugador();
-                        botonAccion.setText("Pasa");
-                    }
-                    
-                    hayFinalPartida();
-                    
-                    break;
-            }
-        });
-        
+        botonAccion.addActionListener(new GestorEventosAccion());
         botonReinicio.addActionListener((ActionEvent event) -> {
             reiniciarPartida();
         });
@@ -391,7 +293,6 @@ public class ClasePrincipal {
     {
         for (int i = 0; i < 4; i++)
             if (mesa.getJugador(i).getCantidadCartas() == 0) finalPartida(i);
-        
     }
     
     private void finalPartida(int i)
@@ -436,153 +337,70 @@ public class ClasePrincipal {
             cartasJugador[i].iniciar(mesa.getJugador(0).getCarta(i).getImagen());
     }
     
-    private class PanelCarta extends JPanel
+    private class GestorEventosAccion implements ActionListener
     {
-        
-        private BufferedImage imagen = null;
-        private boolean esCarta;
-        private boolean visualizar;
-        private int valor = 0;
-        
-        public PanelCarta(boolean c)
+        @Override
+        public void actionPerformed(ActionEvent evento)
         {
-            esCarta = c;
-            visualizar = c;
-        }
-        
-        public void paintComponent(Graphics g)
-        {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setPaint(new Color(30,110,30));
-            Rectangle2D rec = new Rectangle2D.Float(0,0,getWidth(), getHeight());
-            g2.fill(rec);
-            
-            if (imagen != null && visualizar)
+            switch (botonAccion.getActionCommand())
             {
-                g2.drawImage(imagen, esCarta?4:0, esCarta?4:0, 
-                        getWidth()-(esCarta?4:0), getHeight()-(esCarta?4:0), this);
-            }
+                case "Juega":
+                    comenzarPartida();
+                    break;
+                case "Pasa":
+                    for (int i = 0; i < cartasJugador.length; i++)
+                        cartasJugador[i].setEnabled(false);
+
+                    actualizarContadorJugadores();
+
+                    botonAccion.setText("Turno jugador");
+                    mensajeTexto.setText("Has pasado");
+                    break;
+                case "Turno jugador":
+                    
+                    mesa.pasarTurno();
+                    turnoIA();
+                    actualizarVisualizadoCartas();
+                    actualizarContadorJugadores();
             
-            if (!esCarta)
-            {
-                g2.setPaint(Color.WHITE);
-                g2.setFont(new Font("Comic sans", Font.ITALIC | Font.BOLD, 45));
-                g2.drawString(valor+"", (valor > 9)?0:getWidth()/4, getHeight()/1.4f);
+                    if (mesa.getTurnoJugador() == cartasIA.length)
+                    {
+                        mesa.pasarTurno();
+                        activarCartasJugador();
+                        botonAccion.setText("Pasa");
+                    }
+                    
+                    hayFinalPartida();
+                    
+                    break;
             }
-        }
-                
-        public void setImagen(BufferedImage img)
-        {
-            imagen = img;
-            repaint();
-        }
-        
-        public void setImagen(String img)
-        {
-            try{
-                imagen = ImageIO.read(new File(img));
-            } catch (IOException e){
-                System.err.println("ERROR: " + e.toString());
-            }
-        }
-        
-        public void verImagen(boolean a)
-        {
-            visualizar = a;
-            repaint();
-        }
-        
-        public void setValor(int i)
-        {
-            valor = i;
-        }
-        
-        public void reiniciar()
-        {
-            setValor(0);
-            verImagen(esCarta);
         }
     }
     
-    private class BotonCarta extends JButton
+    private class GestorEventosCarta implements ActionListener
     {
-        private BufferedImage imagen = null;
-        private boolean visualizar;
-        
-        public BotonCarta() {}
-        
-        public void paintComponent(Graphics g)
+        @Override
+        public void actionPerformed(ActionEvent evento)
         {
-            Graphics2D g2 = (Graphics2D) g;
-            
-            g2.setPaint(new Color(30,110,30));
-            Rectangle2D rec = new Rectangle2D.Float(0,0,getWidth(), getHeight());
-            
-            g2.fill(rec);
-            
-            if (imagen != null && visualizar)
-                g2.drawImage(imagen, 0, 0, getWidth(), getHeight(), this);
-        }
-        
-        public void reiniciar()
-        {
-            visualizar = false;
-            setVisible(false);
-            setEnabled(false);
-            repaint();
-        }
-        
-        public Dimension getPreferredSize()
-        {
-            return new Dimension(56, 82);
-        }
-        
-        public void verImagen(boolean ver)
-        {
-            visualizar = ver;
-        }
-        
-        public void iniciar(BufferedImage img)
-        {
-            imagen = img;
-            visualizar = true;
-            setEnabled(true);
-            setVisible(true);
-            repaint();
-        }
-    }
-    
-    private class TextoJugador extends JPanel
-    {
-        private int valor;
-        
-        public Dimension getPreferredSize()
-        {
-            return new Dimension(ANCHO, 30);
-        }
+            int indice = 0;
+            while (!cartasJugador[indice].equals(evento.getSource()))
+                indice++;
+            Carta temp = mesa.jugarTurno(indice);
+            if (temp != null)
+            {
+                cartasJugador[indice].verImagen(false);
+                for (int i = 0; i < cartasJugador.length; i++)
+                    cartasJugador[i].setEnabled(false);
 
-        public void paintComponent(Graphics g)
-        {
-            Graphics2D g2 = (Graphics2D) g;
-            g2.setPaint(new Color(40,150,40));
-            Rectangle2D rec = new Rectangle2D.Float(0,0,getWidth(), getHeight());
-            
-            g2.fill(rec);
-            
-            g2.setPaint(Color.WHITE);
-            g2.setFont(new Font("Comic sans", Font.ITALIC | Font.BOLD, 30));
-            g2.drawString(valor+"", (valor < 10) ? 25 : 16, 25);
-        }
+                actualizarContadorJugadores();
 
-        public void reiniciar()
-        {
-            setValor(0);
-            repaint();
-        }
-        
-        public void setValor(int i)
-        {
-            valor = i;
+                botonAccion.setText("Turno jugador");
+                actualizarVisualizadoCartas();
+
+                mensajeTexto.setText("Has colocado el ["+temp.toString()+"]");
+
+                hayFinalPartida();
+            }
         }
     }
 }
