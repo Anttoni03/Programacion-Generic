@@ -1,106 +1,112 @@
 // AUTOR: Antoni Frau Gordiola
-/**
- * <a href="www.google.com"> Vídeo explicativo </a>
- */
 package Practica_juego_del_7;
 
 import javax.swing.ImageIcon;
 
-
-public class MesaJuego {
-    private Jugador[] jugadores = new Jugador[4];
+public class MesaJuego
+{
+    /////////////////////  DECLARACIÓN DE ATRIBUTOS  /////////////////////
+    //Atributo de objeto que indica los jugadores en la mesa
+    private final Jugador[] JUGADORES = new Jugador[4];
+    //Atributo de objeto que indica las cartas en la mesa
     private Carta[] cartasMesa;
-    private int turnoJugador;
+    //Atributo de objeto que indica el turno de jugador actual
+    private int turnoJugador = 0;
     
+    
+    //////////////////////////////  MÉTODOS  //////////////////////////////
+    //Método constructor para instanciar el objeto MesaJuego
     public MesaJuego()
     {
-        Baraja.inicializarBaraja();
-        
-        for (int i = 0; i < jugadores.length; i++)
+        //bucle for para inicializar a los jugadores
+        for (int i = 0; i < JUGADORES.length; i++)
         {
+            //indicar una imagen por jugador, instanciarlo y aplicarle la imagen
             ImageIcon temp = new ImageIcon("Cartes/Jug"+i+"Riu.png");
-            
-            jugadores[i] = new Jugador();
-            jugadores[i].setImagen(temp);
+            JUGADORES[i] = new Jugador();
+            JUGADORES[i].setImagen(temp);
         }
-        turnoJugador = 0;
-        
-        reiniciarCartas();
+        //reiniciar las cartas de la mesa
+        cartasMesa = Baraja.getBaraja();
     }
     
-    public void reiniciarCartas()
-    {
-        cartasMesa = Baraja.getNuevaBaraja();
-    }
-    
+    //Método barajarCartas que recibe un conjunto de cartas barajadas
     public void barajarCartas()
     {
         cartasMesa = Baraja.barajar();
     }
     
+    //Método repartirCartas que reparte las cartas en mesa entre los jugadores
     public void repartirCartas()
     {
-        Carta[] temp;
-        
-        for (int i = 0; i < jugadores.length; i++)
+        //bucle for para aplicarle las cartas a todos los jugadores
+        for (int i = 0; i < JUGADORES.length; i++)
         {
-            temp = new Carta[Baraja.getCantidadPalo()];
-            
+            //inicializar un array temporal por jugador a repartirle cartas
+            Carta[] temp = new Carta[Baraja.getCantidadPalo()];
+            //bucle for que reparte una cantidad de cartas por palo a jugadores
             for (int j = 0; j < temp.length; j++)
             {
+                //añadir carta por parta al array temporal para repartir
                 temp[j] = cartasMesa[i*Baraja.getCantidadPalo()+j].copiar();
+                //iniciar las cartas repartidas como no asignadas en la mesa
                 cartasMesa[i*Baraja.getCantidadPalo()+j] = new Carta();
             }
-            
-            jugadores[i].setCartas(temp);
+            //aplicarle las cartas indicadas al jugador
+            JUGADORES[i].setCartas(temp);
         }
     }
     
-    //Método de jugar el turno del jugador al que le toque y que devuelve true
-    //si se ha seleccionado una carta válida y false si no
-    public Carta jugarTurno(int numero)
+    //Método jugarTurno que devuelve una carta si es posible jugar el turno
+    public Carta jugarTurno(int modo)
     {
+        //declarar una carta para devolver
         Carta carta;
-        
-        if (turnoJugador == 0 && numero == -1)
-            return null;
-        else if (turnoJugador == 0)
-            carta = jugadores[turnoJugador].jugadaManual(numero, cartasMesa);
+        //indicar si se trata del jugador o de un jugador bot
+        if (turnoJugador == 0)
+            //si el modo es -1 indicar que no se puede
+            if (modo == -1) return null;
+            //si el modo no es -1 se usa para seleccionar la carta
+            else carta = JUGADORES[turnoJugador].jugadaManual(modo, cartasMesa);
         else
-            carta = jugadores[turnoJugador].jugadaIA(cartasMesa);
+            carta = JUGADORES[turnoJugador].jugadaBot(cartasMesa);
         
+        //indicar la carta seleccionada a la mesa si no es nula y devolverla
         if (carta != null)
         {
             cartasMesa[Baraja.getPosicionDeCarta(carta)] = carta.copiar();
             return carta;
         }
+        //devolver null al no haber llegado a devolver una carta
         return null;
     }
     
+    //Método pasarTurno que avanza en 1 el turno activo de los jugadores
     public void pasarTurno()
     {
-        turnoJugador = (turnoJugador + 1) % jugadores.length;
+        turnoJugador = (turnoJugador + 1) % JUGADORES.length;
     }
     
+    //Método haGanado que devuelve el índice del jugador que ha ganado
     public int haGanado()
     {
-        for (int i = 0; i < jugadores.length; i++)
-        {
-            if (jugadores[i].getCantidadCartas() == 0) return i;
-        }
+        for (int i = 0; i < JUGADORES.length; i++)
+            if (JUGADORES[i].getCantidadCartas() == 0) return i;
         
         return -1;
     }
     
+    //Método getTurnoJugador que devuelve el turno actual de los jugadores
     public int getTurnoJugador()
     {
         return turnoJugador;
     }
-    
+    //Método getJugador que devuelve el jugador indicado
     public Jugador getJugador(int i)
     {
-        return jugadores[i];
+        return JUGADORES[i];
     }
+    //Método getCartas que devuelve las cartas de la mesa
     public Carta[] getCartas()
     {
         return cartasMesa;
