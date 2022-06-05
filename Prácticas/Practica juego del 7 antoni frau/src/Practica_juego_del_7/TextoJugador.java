@@ -20,7 +20,7 @@ class TextoJugador extends JPanel
         
         //definir un rectángulo y pintarlo de color verde oscuro
         Rectangle2D rec = new Rectangle2D.Float(0,0,getWidth(), getHeight());
-        g2.setPaint(new Color(40,150,240));
+        g2.setPaint(new Color(40,150,40));
         g2.fill(rec);
 
         //definir el color y fuente del texto

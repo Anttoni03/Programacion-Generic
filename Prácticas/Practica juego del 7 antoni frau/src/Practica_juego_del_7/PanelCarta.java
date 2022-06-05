@@ -13,7 +13,7 @@ class PanelCarta extends JPanel
     //Atributo de objeto que indica la imagen del panel
     private BufferedImage imagen = null;
     //Atributo de objeto que indica si se usa o no como carta
-    private boolean esCarta;
+    private final boolean CARTA;
     //Atributo de objeto que indica se se debe visualizar la imagen
     private boolean visualizar;
     //Atributo de objeto que indica el valor numérico a mostrar
@@ -24,7 +24,7 @@ class PanelCarta extends JPanel
     //Método constructor para instanciar objetos PanelCarta
     public PanelCarta(boolean carta)
     {
-        esCarta = carta;
+        CARTA = carta;
         visualizar = carta;
     }
     
@@ -43,12 +43,12 @@ class PanelCarta extends JPanel
         //si se debe visualizar se pinta la imagen con desplazamiento si debe
         if (imagen != null && visualizar)
         {
-            g2.drawImage(imagen, esCarta?4:0, esCarta?4:0, 
-                    getWidth()-(esCarta?4:0), getHeight()-(esCarta?4:0), this);
+            g2.drawImage(imagen, CARTA?4:0, CARTA?4:0, 
+                    getWidth()-(CARTA?4:0), getHeight()-(CARTA?4:0), this);
         }
         
         //si no actúa como carta se pinta el valor numérico
-        if (!esCarta)
+        if (!CARTA)
         {
             //definir el color y la fuente
             g2.setPaint(Color.WHITE);
@@ -92,6 +92,6 @@ class PanelCarta extends JPanel
         //da un valor de 0 por defecto
         setValor(0);
         //indica que se visualice si actúa como carta
-        setVisualizar(esCarta);
+        setVisualizar(CARTA);
     }
 }

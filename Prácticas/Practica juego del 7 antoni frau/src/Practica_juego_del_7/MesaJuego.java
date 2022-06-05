@@ -87,13 +87,11 @@ public class MesaJuego
         turnoJugador = (turnoJugador + 1) % JUGADORES.length;
     }
     
-    //Método haGanado que devuelve el índice del jugador que ha ganado
-    public int haGanado()
+    //Método haGanado que devuelve "true" si el jugador activo ha ganado
+    public boolean haGanado()
     {
-        for (int i = 0; i < JUGADORES.length; i++)
-            if (JUGADORES[i].getCantidadCartas() == 0) return i;
-        
-        return -1;
+        //indicar si la cantidad de cartas del jugador activo es 0
+        return JUGADORES[turnoJugador].getCantidadCartas() == 0;
     }
     
     //Método getTurnoJugador que devuelve el turno actual de los jugadores

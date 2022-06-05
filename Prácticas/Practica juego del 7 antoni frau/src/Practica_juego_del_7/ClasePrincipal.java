@@ -57,6 +57,7 @@ public class ClasePrincipal
         
         
         
+        
         //declaración e inicialización de panel principal de mesa
         JPanel panelMesa = new JPanel();
         
@@ -304,26 +305,17 @@ public class ClasePrincipal
             mensajeTexto.setText("El BOT " + (bot) + " pasa");
     }
     
-    //Método hayFinalPartida que comprueba si un jugador no tiene cartas
-    private void hayFinalPartida()
-    {
-        //comprobar si algún jugador de la mesa ha ganado
-        int resultado = mesa.haGanado();
-        //si hay algún ganador iniciar el final de la partida
-        if (resultado != -1) finalPartida(resultado);
-    }
-    
     //Método finalPartida que gestiona las acciones del final de una partida
-    private void finalPartida(int i)
+    private void finalPartida(int ganador)
     {
         //desactiva el botón de acciones
         botonAccion.setEnabled(false);
         //mostrar una ventana emergente indicando el jugadar que ha ganado
         JOptionPane.showMessageDialog(null
-                , (i == 0)? "HAS GANADO!" : ("HA GANADO EL BOT " + i)
+                , (ganador == 0)? "HAS GANADO!" : ("HA GANADO EL BOT " + ganador)
                 , "HEY!"
                 , JOptionPane.INFORMATION_MESSAGE
-                , mesa.getJugador(i).getImagen());
+                , mesa.getJugador(ganador).getImagen());
     }
     
     //Método activarCartasJugador que activa las cartas del jugador asignadas
@@ -381,7 +373,7 @@ public class ClasePrincipal
                     break;
                 //el caso de acción "Pasa" deja el turno sin jugar
                 case "Pasa":
-                    //bucle for que desactiva las cartas del jugador para no usarlas
+                    //bucle for que desactiva cartas del jugador para no usarlas
                     for (int i = 0; i < cartasJugador.length; i++)
                         cartasJugador[i].setEnabled(false);
                     //llamada a actualizar el contador de los jugadores
@@ -410,7 +402,7 @@ public class ClasePrincipal
                         botonAccion.setText("Pasa");
                     }
                     //comprobar el final de la partida
-                    hayFinalPartida();
+                    if (mesa.haGanado()) finalPartida(mesa.getTurnoJugador());
                     break;
             }
         }
@@ -444,7 +436,7 @@ public class ClasePrincipal
                 //aplicar el texto de la carta seleccionada en el campo de texto
                 mensajeTexto.setText("Has colocado el ["+temp.toString()+"]");
                 //comprobar el final de la partida
-                hayFinalPartida();
+                if (mesa.haGanado()) finalPartida(mesa.getTurnoJugador());
             }
             //si el registro de carta es nulo indicar que no es válida
             else
