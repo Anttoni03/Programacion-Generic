@@ -1,3 +1,4 @@
+//AUTOR: Antoni Frau Gordiola
 package Practica_juego_del_7;
 
 import java.awt.*;
