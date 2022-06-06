@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-/** <a href="www.google.com"> Vídeo explicativo </a> */
+/** <a href="https://youtu.be/0u33Nt3KwUM"> Vídeo explicativo </a> */
 public class ClasePrincipal 
 {
     /////////////////////  DECLARACIÓN DE ATRIBUTOS  /////////////////////
