@@ -45,7 +45,7 @@ class PanelCarta extends JPanel
         if (imagen != null && visualizar)
         {
             g2.drawImage(imagen, CARTA?4:0, CARTA?4:0, 
-                    getWidth()-(CARTA?4:0), getHeight()-(CARTA?4:0), this);
+                    getWidth()-(CARTA?4:0), getHeight()-(CARTA?3:0), this);
         }
         
         //si no actúa como carta se pinta el valor numérico
