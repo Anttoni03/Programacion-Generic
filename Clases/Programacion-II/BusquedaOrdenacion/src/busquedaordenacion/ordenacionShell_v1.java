@@ -22,7 +22,7 @@ public class ordenacionShell_v1 {
     //ARRAY DE COMPONENTES ENTERAS Y SIGUIENDO UN CRITERIO DE ORDENACIÓN
     //ASCENDENTE
      public static int [] ordenarShell (int [] numeros) {
-        for (int incremento = numeros.length / 2;incremento > 0;incremento = incremento/2) {
+        for (int incremento = numeros.length / 2;incremento > 0;incremento /= 2) {
             for (int i = incremento; i < numeros.length; i++) {
                 for (int j = i; j >= incremento && numeros[j - incremento] > numeros[j]; j -= incremento) {
                     //INTERCAMBIAMOS LOS ELEMENTOS DE LAS POSICIONES ITERATIVAS

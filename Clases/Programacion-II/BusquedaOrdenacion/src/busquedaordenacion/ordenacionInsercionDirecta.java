@@ -36,9 +36,17 @@ public class ordenacionInsercionDirecta {
                 numeros[indice2] = numeros[indice2-1];
             }
             numeros[indice2] = menor;
+            System.out.print("\nIter\t" +imp(numeros));
         }
         //devolución vector ordenado
         return numeros;
+    }
+    
+    static String imp(int n[]){
+        String r = "";
+        for (int e : n)
+            r+=e+"\t";
+        return r;
     }
 }
 

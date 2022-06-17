@@ -11,6 +11,7 @@ import java.util.Random;
 public class Vector {
     //ATRIBUTOS
     private double vector [];
+    private static int contAux;
 
     //MÉTODOS
     //Constructor
@@ -180,15 +181,18 @@ public class Vector {
         Vector v = copiar();
         int iter = 0;
         
-        combinatoriosBucle(v, iter);
+        contAux = 0;
+        combinatoriosBucle(v, 0);
     }
     
     private void combinatoriosBucle(Vector v, int iter)
     {        
         if (iter == v.vector.length - 2)
         {
-            System.out.println(v.toStringChar());
-            System.out.println(v.permutar(iter, iter+1).toStringChar());
+            contAux++;
+            System.out.println(contAux +" " +v.toStringChar());
+            contAux++;
+            System.out.println(contAux +" " +v.permutar(iter, iter+1).toStringChar());
             
             return;
         }

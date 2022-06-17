@@ -17,11 +17,11 @@ public class PermutacionesVectores {
     
     private void metodoPrincipal()
     {
-        Vector v = new Vector(4);
-        v.ponerElemento(0, (double)((int)'a'));
-        v.ponerElemento(1, (double)((int)'b'));
-        v.ponerElemento(2, (double)((int)'c'));
-        v.ponerElemento(3, (double)((int)'d'));
+        char[] let = "abcdefghijklmnopqrstuvwxyz".toCharArray();
+        int n = 4;
+        Vector v = new Vector(n);
+        for (int i = 0; i < n; i++)
+            v.ponerElemento(i, (double)((int)let[i]));
         
         v.combinatorios();
     }
